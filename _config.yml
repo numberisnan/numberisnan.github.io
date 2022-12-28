@@ -1,27 +1,28 @@
 ### your site title here
 
-title: Your Name
-description: subtitle | affiliations | motto
+title: Faraz Malik
+description: CS '26 @ UofT
 
 baseurl: #name of GitHub repository
 url: "" #custom url to be used instead of GitHub repository
-email: #
+email: "faraz.malik@mail.utoronto.ca"
 
 # Pagination
 paginate: 4
 permalink: /blog/:year/:title/
-paginate_path: /blog/page:num/
+paginate_path: /blog/:num/
 
 # Social media links in footer
-twitter: "#"
-linkedin: "#"
-stackoverflow: "#"
-github: "#"
-researchgate: "#"
-orcid: "#"
-quora: "#"
-instagram: "#"
-facebook: "#"
+# twitter: "#"
+linkedin: "numberisnan"
+stackoverflow: "20187265"
+github: "farazkaleemmalik"
+#researchgate: "#"
+#orcid: "#"
+#quora: "#"
+instagram: "numberisnan"
+#facebook: "#"
+discord: "492024450825322498"
 
 
 # Markdown
