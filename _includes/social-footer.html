@@ -89,4 +89,13 @@ target="_blank">
 </a>
 {%- endif -%}
 
+{%- if site.discord -%}
+<a title="{{ _locale_string_follow | replace: '[NAME]', 'Discord' }}"
+class="social-button discord" itemprop="sameAs"
+href="https://discordapp.com/users/{{ site.discord }}"
+target="_blank">
+<i class="fab fa-brands fa-discord"></i>
+</a>
+{%- endif -%}
+
 </div>

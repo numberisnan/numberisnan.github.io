@@ -142,6 +142,17 @@
   background: #f48024;
 }
 
+.rounded-social-buttons .social-button.discord {
+  background: #7785cc;
+}
+
+.rounded-social-buttons .social-button.discord:hover {
+  color: #7785cc;
+  background: #fefefe;
+  border-color: #5dd1b0;
+}
+
+
 .rounded-social-buttons .social-button.stackoverflow:hover, .rounded-social-buttons .social-button.stackoverflow:focus {
   color: #f48024;
   background: #fefefe;
