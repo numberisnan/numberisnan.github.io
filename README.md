@@ -2,6 +2,15 @@
 
 responsive, dark-mode ready Jekyll theme designed for use as a personal website and portfolio. [Here's a live demo](https://jitinnair1.github.io/gradfolio/)
 
+## Running
+
+```bash
+bundle install #to install Jekyll and required plugins
+bundle exec jekyll serve --incremental --trace
+```
+
+See [here](https://github.com/jitinnair1/gradfolio/wiki/Local-Development) for more details
+
 ## Features
 - Responsive
 - Respects Dark Mode preference set by the user
