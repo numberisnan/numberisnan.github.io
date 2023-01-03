@@ -7,15 +7,16 @@ profile:
 published: true
 ---
 
-[Gradfolio](https://github.com/jitinnair1/gradfolio){:target="_blank"} is a responsive, dark-mode ready Jekyll theme designed keeping academia in mind. The easiest way to install the theme is to fork it using GitHub. Check the README file for [instructions](https://github.com/jitinnair1/gradfolio#installation){:target="_blank"}.
+Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough currently on my second year. I am passionate about a wide variety of areas in software and hardware, including microcontrollers, SBC and SoC programming, web development, IoT, and cybersecurity. I also go by variants of *Number.isNaN*, depending on what characters the platform allows.
 
-If you want to use this space to write your biography here, edit the `index.md` file. You can put a picture in, too. Rename your picture to `profile.png` and put it in the `assets/images/` folder.
+On this personal website you will find my portfolio of projects I have managed to document properly, my resume, my blog (mainly for CTF writeups), and some social links in the footer.
 
-The social-icons footer can be used to link profiles from GitHub, OrcID and ReasearchGate aprart form the usual Twitter, LinkedIn and Facebook. You can add your user ID in the `_config.yml` file to link your accounts.
+### Below are some of my best [projects](/projects):
 
-PS: If you liked the theme, do star it on GitHub!
+**[UTSC Clubhouse](/projects/clubhouse)**: A MERN webapp for managing student organizations. Features include viewing clubs, applying to clubs, viewing club events, and opt in email notifications. The app was written over a 4 month term by a team of 7 using Agile and Scrum methodology.
 
-### Also, check out:
+**[Simpl.ai](/projects/simplai)**: A React webapp that uses NLP to recognize difficult text and rephrase it to easy-to-understand language. This app was written over a weekend for Hack the Valley 7 @ UTSC, winning my team 2nd place overall out of ~100 submissions.
 
-- [autoCV](https://github.com/jitinnair1/autocv) - a LaTeX template that builds and deploys the CV using GitHub Actions, so you will always have a ready link for your latest CV
-- [Tail](https://github.com/jitinnair1/tail) - a minimal, quick-setup template for a blog
+**[gocomics-api](/projects/gocomics)**: An open source npm package which scrapes gocomics.com for specific comic links. Since being published in 2018, has gained 6 stars on Github, ~2000 downloads on npm, and successful forks and pull requests.
+
+Also check out my [Youtube](https://www.youtube.com/channel/UC0e7b4JEpFIuOcRSb0Wi6Dg) for hobby lego projects and some hardware demos.
