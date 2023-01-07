@@ -17,6 +17,6 @@ On this personal website you will find my portfolio of projects I have managed t
 
 **[Simpl.ai](/projects/simplai)**: A React webapp that uses NLP to recognize difficult text and rephrase it to easy-to-understand language. This app was written over a weekend for Hack the Valley 7 @ UTSC, winning my team 2nd place overall out of ~100 submissions.
 
-**[gocomics-api](/projects/gocomics)**: An open source npm package which scrapes gocomics.com for specific comic links. Since being published in 2018, has gained 6 stars on Github, ~2000 downloads on npm, and successful forks and pull requests.
+**[gocomics-api](/projects/gocomics)**: An open source npm package which scrapes gocomics.com for specific comic image links. Since being published in 2018, has gained 6 stars on Github, ~1000 downloads on npm, and successful forks and pull requests.
 
 Also check out my [Youtube](https://www.youtube.com/channel/UC0e7b4JEpFIuOcRSb0Wi6Dg) for hobby lego projects and some hardware demos.
