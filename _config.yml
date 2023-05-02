@@ -4,7 +4,7 @@ title: Faraz Malik
 description: CS '26 @ UofT
 
 baseurl: #name of GitHub repository
-url: "" #custom url to be used instead of GitHub repository
+url: "https://farazkaleemmalik.cyou" #custom url to be used instead of GitHub repository
 email: "faraz.malik@mail.utoronto.ca"
 
 # Pagination
