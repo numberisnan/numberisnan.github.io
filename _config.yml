@@ -1,11 +1,11 @@
 ### your site title here
 
-title: Faraz Malik
+title: Faraz Kaleem Malik
 description: CS '26 @ UofT
 
 baseurl: #name of GitHub repository
 url: "https://farazkaleemmalik.cyou" #custom url to be used instead of GitHub repository
-email: "faraz.malik@mail.utoronto.ca"
+email: "farazmalik17465@gmail.com"
 
 # Pagination
 paginate: 4
@@ -20,7 +20,7 @@ github: "farazkaleemmalik"
 #researchgate: "#"
 #orcid: "#"
 #quora: "#"
-instagram: "numberisnan"
+#instagram: "#"
 #facebook: "#"
 discord: "492024450825322498"
 
