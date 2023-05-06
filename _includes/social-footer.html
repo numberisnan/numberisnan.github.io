@@ -98,4 +98,13 @@ target="_blank">
 </a>
 {%- endif -%}
 
+{%- if site.devpost -%}
+<a title="{{ _locale_string_follow | replace: '[NAME]', 'Devpost' }}"
+class="social-button devpost" itemprop="sameAs"
+href="https://devpost.com/{{ site.devpost }}"
+target="_blank">
+<i class="fab">D</i>
+</a>
+{%- endif -%}
+
 </div>
