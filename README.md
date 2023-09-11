@@ -6,7 +6,7 @@ responsive, dark-mode ready Jekyll theme designed for use as a personal website 
 
 ```bash
 bundle install #to install Jekyll and required plugins
-bundle exec jekyll serve --incremental --trace
+bundle exec jekyll serve --trace
 ```
 
 See [here](https://github.com/jitinnair1/gradfolio/wiki/Local-Development) for more details
