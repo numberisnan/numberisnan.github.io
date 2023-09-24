@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: project
 title: UTSC Clubhouse
 description: A MERN webapp for managing student organizations, developed using Scrum w/ team of 7
 ---

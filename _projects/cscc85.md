@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: project
 title: CSCC85 - Fundamentals of Robotics
 description: Compilation of every project in this course
 ---
