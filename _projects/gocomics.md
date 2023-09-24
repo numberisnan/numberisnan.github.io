@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: project
 title: gocomics-api
 description: An npm package which scrapes gocomics.com for image links
 ---

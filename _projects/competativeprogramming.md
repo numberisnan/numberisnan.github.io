@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: project
 title: Competitive Programming
 description: A summary of my competitive programming history
 ---

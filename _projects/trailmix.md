@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: project
 title: The Trail Mix Factory order form
 description: A GatsbyJS and Material-UI ordering form for trail mix
 ---

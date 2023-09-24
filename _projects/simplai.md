@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: project
 title: Simpl.ai
 description: A webapp that recognizes difficult text and rephrases it to easier language
 ---
