@@ -5,7 +5,7 @@ description: CS '26 @ UofT
 
 baseurl: #name of GitHub repository
 url: "https://farazkaleemmalik.cyou" #custom url to be used instead of GitHub repository
-email: "farazmalik17465@gmail.com"
+email: "webmaster@farazkaleemmalik.cyou"
 
 # Pagination
 paginate: 4
