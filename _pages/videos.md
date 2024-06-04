@@ -36,10 +36,6 @@ A while ago I deleted my Youtube channel, so I'm hosting a mirror of some the co
     <source src="/assets/videos/CSCC85 Scoring on another team.mp4" type="video/mp4">
 </video>
 
-<video width="600" controls>
-    <source src="/assets/videos/CSCC85 Choose the Napkin Robosoccer Games.mp4" type="video/mp4">
-</video>
-
 #### Lego Creations
 
 <video width="200" controls>
