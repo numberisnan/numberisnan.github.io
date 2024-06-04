@@ -14,15 +14,15 @@ paginate_path: /blog/:num/
 
 # Social media links in footer
 # twitter: "#"
-linkedin: "numberisnan"
-stackoverflow: "20187265"
+linkedin: "farazkaleemmalik"
+#stackoverflow: "20187265"
 github: "farazkaleemmalik"
 #researchgate: "#"
 #orcid: "#"
 #quora: "#"
 #instagram: "#"
 #facebook: "#"
-discord: "492024450825322498"
+#discord: "492024450825322498"
 devpost: "farazkaleemmalik"
 
 
