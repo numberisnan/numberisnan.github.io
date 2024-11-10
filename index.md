@@ -7,7 +7,7 @@ profile:
 published: true
 ---
 
-Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough. My interests include embedded programming, web development, networking, and sysadmining.
+Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough. My interests include embedded programming, web development, networking, and system administration.
 ### Example web dev [projects](/projects):
 
 **[UTSC Clubhouse](/projects/clubhouse)**: A MERN webapp for managing student organizations. Written over a 4 month term by a team of 7 following Scrum.
