@@ -7,11 +7,11 @@ profile:
 published: true
 ---
 
-Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough. My interests include embedded programming, web development, networking, and system administration.
+Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough. My interests include web development, firmware, FOSS and Linux system administration. I'm currently the President of the [UofT WHWC](https://uoftwebloggingclub.neocities.org/).
 ### Example web dev [projects](/projects):
 
-**[UTSC Clubhouse](/projects/clubhouse)**: A MERN webapp for managing student organizations. Written over a 4 month term by a team of 7 following Scrum.
+**[UofT Weblogging and Homebrew Website Club](/projects/webloggingclub)**: A handcrafted website and RSS pipeline to highlight various homebrew websites and blogs from the UofT community
 
 **[Simpl.ai](/projects/simplai)**: A webapp that uses Google's Bard to rephrase difficult text. Written for Hack the Valley 7 @ UTSC, winning 2nd place out of ~100.
 
-**[gocomics-api](/projects/gocomics)**: An open source npm package which scrapes gocomics.com for image links. Since being published in 2018, gained 6 stars on Github, ~1000 downloads on npm, and successful pull requests.
+**[gocomics-api](/projects/gocomics)**: An open source npm package which scrapes gocomics.com for image links. Since being published in 2018, gained 10 stars on Github, ~1000 downloads on npm, and successful pull requests.
