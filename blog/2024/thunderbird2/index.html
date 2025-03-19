@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Thunderbird RSS Hack | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Thunderbird RSS Hack" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Final Thunderbird post for a while, I promise" />
+<meta property="og:description" content="Final Thunderbird post for a while, I promise" />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2024/thunderbird2/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2024/thunderbird2/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-11-10T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Thunderbird RSS Hack" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2024-11-10T00:00:00+00:00","datePublished":"2024-11-10T00:00:00+00:00","description":"Final Thunderbird post for a while, I promise","headline":"Thunderbird RSS Hack","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2024/thunderbird2/"},"url":"https://farazkaleemmalik.cyou/blog/2024/thunderbird2/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Thunderbird RSS Hack</h1>
+<p class="meta"><small>November 10, 2024</small></p>
+
+<p>Final Thunderbird post for a while, I promise</p>
+
+<h2 id="the-problem">The problem</h2>
+
+<p>So for my RSS reader, I use Thunderbird since I already use it for email and, like I demonstrate in my previous post, OpenPGP as well. I actually use it for CalDAV as well, all in all its a featureful organisation software.</p>
+
+<p>The biggest flaw for me is the fact that settings cannot be synced between clients. So for example, since Thunderbird is on my desktop, when I add a feed to my reader on it, it doesn’t show up on the Thunderbird on my laptop. Furthermore, what if I want to read on my phone? Do I need to maiantain 3 lists of the same thing manually?</p>
+
+<p>One solution is a web based one. That is, your RSS feed sits on a server somewhere and you run a web application that lets you access it from anywhere with an internet connection and browser. In most cases however, this would require such a person to learn system administration, which while valuable knowledge serves as a significant barrier to entry. One could use someone else’s instance, but in my search I found it really difficult to find anyone else offering this.</p>
+
+<p>My solution was somewhat born out of an idea: what if we could apply Thunderbird’s mail filters to RSS feed entries? I’m not really sure what I expected to happen, but apparently it was actually possible! Thunderbird seems to treat your entire “Blogs and News Feeds” section as one mail folder, and treats each incoming feed entry as an incoming email. Neat!</p>
+
+<h2 id="the-solution">The solution</h2>
+
+<p>We can use mail filters to move RSS entries as they come in to a specific subfolder in your mailbox.</p>
+
+<blockquote>
+  <p>What? Can articles and blogposts really be uploaded to a mailbox?</p>
+</blockquote>
+
+<p>Thunderbird appears to store feed entries as emails, or somehow converts entries to emails (with metadata becoming email headers) during handling of our rules. It strangely works, though you may see some missing info if you view it from another client like K9 Mail. Here are the rules. Recall that the message filter window can be opened by clicking the top-left hamburger menu then going to Tools -&gt; Message Filters.</p>
+
+<h3 id="on-blogs-and-feeds">On ‘Blogs and Feeds’</h3>
+
+<p><img src="/assets/images/thunderbird/rules1.png" alt="First set of rules"></p>
+
+<p>Some email addresses are redacted for privacy, but really it should be the email address you want to upload the feed entries to. It first tags them as RSS, then moves them to your inbox.</p>
+
+<blockquote>
+  <p>But why not move it to your ‘RSS’ subfolder directly?</p>
+</blockquote>
+
+<p>We also want to mark all entries in our email copies of the feed items as read, while maintaining the ‘unreadness’ in our main reader. It would be annoying having to mark 2 entries as read every time you read an article, so we don’t bother</p>
+
+<h3 id="on-email-inbox">On Email Inbox</h3>
+
+<p><img src="/assets/images/thunderbird/rules2.png" alt="Second set of rules"></p>
+
+<p>Once an RSS tagged entry is detected, it marks the entry as ‘Read’ then moves it to the corresponding folder, without messing with any of the original feed entries. Neat! If you open this folder on another Thunderbird client, most of the metadata you are used to seeing like the “Website” tag is still there surprisingly, allowing you to read your feeds anywhere you choose.</p>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

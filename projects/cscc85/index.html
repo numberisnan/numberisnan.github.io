@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>CSCC85 - Fundamentals of Robotics | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="CSCC85 - Fundamentals of Robotics" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Compilation of every project in this course" />
+<meta property="og:description" content="Compilation of every project in this course" />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/projects/cscc85/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/projects/cscc85/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-03-19T20:35:20+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="CSCC85 - Fundamentals of Robotics" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2025-03-19T20:35:20+00:00","datePublished":"2025-03-19T20:35:20+00:00","description":"Compilation of every project in this course","headline":"CSCC85 - Fundamentals of Robotics","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/projects/cscc85/"},"url":"https://farazkaleemmalik.cyou/projects/cscc85/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">CSCC85 - Fundamentals of Robotics</h1>
+
+<p>CSCC85 was divided into a few exercises and 3 major projects (with an optional project 0). Instead of a dedicated links section, I’ll walk through each one since they are all pretty unique. A course overview can be fond <a href="https://www.cs.toronto.edu/~strider/CSCC85.html" target="_blank" rel="noopener noreferrer">here</a> for those interested. All these projects were in groups of 2, my partner being <a href="https://github.com/Noor-Nasri" target="_blank" rel="noopener noreferrer">Noor Nasri</a></p>
+
+<h3 id="project-0-chocolate-launcher">Project 0: Chocolate Launcher</h3>
+<p>The goal here was to get familiar with the tools we would be using in later projects, such as the Legos themselves and the bluetooth API in C. What we were supposed to build was a chocolate launching machine, with points awarded for creativity and ‘coolness’. The solution I came up with was a catapult where the release is controlled by rubber bands, and a disengage/reengage mechanism for actually launching.</p>
+
+<h4 id="links">Links</h4>
+<ul>
+  <li><a href="https://youtube.com/shorts/qaNhdpgrmq8?si=EnSIkaIECMiOmarE" target="_blank" rel="noopener noreferrer">Video</a></li>
+  <li><a href="https://github.com/Choose-the-Napkin/CSCC85_Project0_Catapult" target="_blank" rel="noopener noreferrer">Github</a></li>
+</ul>
+
+<h3 id="project-1-lander">Project 1: Lander</h3>
+<p>The point of this project was to write a control program to successfully land a rover on goal on a surface as shown</p>
+
+<p><img src="/assets/images/lander.png" alt="Planet Surface"></p>
+
+<p>We were supposed to take into account sensor noise as well as control noise (from the rockets) as well as total failure of any of these components. I can’t share tha code since it could easily be copied, so just take my word that we did succeed in most scenarios :)</p>
+
+<h3 id="project-2-robot-localization">Project 2: Robot Localization</h3>
+<p>In this project, we were to build a robot that could read color mappings on a field so it could figure out where it was, then move to a defined location. This was done using a Markov localization, which uses probabilities to factor both control and sensor error. Below was our robot
+<img src="/assets/images/localisation1.png" alt="robot"></p>
+
+<h4 id="links-1">Links</h4>
+<ul>
+  <li><a href="https://youtube.com/shorts/rVcYOCwwKto?si=EnSIkaIECMiOmarE" target="_blank" rel="noopener noreferrer">The robot in action!</a></li>
+  <li><a href="https://github.com/Choose-the-Napkin/CSCC85_Project2_Localisation" target="_blank" rel="noopener noreferrer">Github</a></li>
+</ul>
+
+<h3 id="project-3-robosoccer">Project 3: Robosoccer</h3>
+<p>For this project, we were to build a robot to compete in ‘robosoccer’ - a simplified version of soccer where the goal was to put the ball in a ‘net’, as can be seen in the videos. The robot I built is as shown. More details about the robot are in the README of the github.
+<img src="/assets/images/robosoccer.png" alt="soccer bot"></p>
+
+<p>Field info was given through a computer vision API provided, which ran the control sequence each processed frame of an overhead camera. The robot was autonomous, controlled by a FSM that transitioned with each frame.</p>
+
+<h4 id="links-2">Links</h4>
+<ul>
+  <li><a href="https://github.com/Choose-the-Napkin/CSCC85_Project3_Robosoccer" target="_blank" rel="noopener noreferrer">Github Repo</a></li>
+  <li><a href="https://youtube.com/shorts/OfwFI1kRaYA?si=EnSIkaIECMiOmarE" target="_blank" rel="noopener noreferrer">Short Video of shooting mechanism</a></li>
+  <li><a href="https://youtu.be/3U22YUuJi5U" target="_blank" rel="noopener noreferrer">Long Video of all our games</a></li>
+  <li><a href="https://www.youtube.com/playlist?list=PL2ISZpXBah3xIqqzW_aH4IJMEaVAGgpnQ" target="_blank" rel="noopener noreferrer">Playlist of every game on tournament</a></li>
+</ul>
+
+
+<!-- Comments only for posts -->
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

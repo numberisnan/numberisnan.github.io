@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://farazkaleemmalik.cyou/feed.xml" rel="self" type="application/atom+xml" /><link href="https://farazkaleemmalik.cyou/" rel="alternate" type="text/html" /><updated>2025-03-19T20:35:20+00:00</updated><id>https://farazkaleemmalik.cyou/feed.xml</id><title type="html">Faraz Kaleem Malik</title><subtitle>Personal website for a Computer Science student at UofT</subtitle><author><name>farazkaleemmalik</name></author><entry><title type="html">BroncoCTF 2025 QR Coded Writeup</title><link href="https://farazkaleemmalik.cyou/blog/2025/bronco/" rel="alternate" type="text/html" title="BroncoCTF 2025 QR Coded Writeup" /><published>2025-02-17T00:00:00+00:00</published><updated>2025-02-17T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/bronco</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/bronco/"><![CDATA[<p>This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte.</p>
+
+<h2 id="problem">Problem</h2>
+
+<blockquote>
+  <p>This one should be really easy. All you have to do is scan a QR code!</p>
+</blockquote>
+
+<p>Attached is an image called “easy_scan.png”, which is exactly as shown.</p>
+
+<p><img src="/assets/images/bronco/easy_scan.png" alt="" /></p>
+
+<h2 id="steps">Steps</h2>
+
+<p>Scanning the QR code like the problem statement suggests gives you <code class="language-plaintext highlighter-rouge">bracco{thi5_1sn7_r34l}</code>. Not very helpful. I decided to plug the image into <a href="https://www.aperisolve.com/">AperiSolve</a> to give some more info.</p>
+
+<p><img src="/assets/images/bronco/aperisolve.png" alt="" /></p>
+
+<p>I noticed that all layers except the first were identical. This makes sense since the image appeared to be white and black, which are  #ffffff and #000000 respectively. Thus, there was only variation in the least significant bits, which we could see best in the superimposed image in the top left corner. Of course, these variations are impossible to notice on the final image.</p>
+
+<p>One thing to notice is that the colourful superposition actually forms a valid, <em>but different</em> QR code. For me, the tell was the clear existence of the 3 large squares and the smaller square near the bottom right (yeah I watched that <a href="https://www.youtube.com/watch?v=w5ebcowAJD8&amp;pp=ygURcXIgY29kZSBleHBsYWluZWQ%3D">Veritasium video</a>).</p>
+
+<p><img src="/assets/images/bronco/qr.png" alt="" /></p>
+
+<p>From there, I just had to convert the colorful image into black and white. This can be done with a simple ImageMagick command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>magick qr.png -alpha off -threshold 99% o.png
+</code></pre></div></div>
+
+<p><img src="/assets/images/bronco/o.png" alt="" /></p>
+
+<p>Scanning the code (or in my case, uploading it to some random QR code decoder site) gives us the flag, <code class="language-plaintext highlighter-rouge">bronco{th1s_0n3_i5}</code>.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte.]]></summary></entry><entry><title type="html">ISSessions CTF 2025 Google Sus Writeup</title><link href="https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus/" rel="alternate" type="text/html" title="ISSessions CTF 2025 Google Sus Writeup" /><published>2025-02-10T00:00:00+00:00</published><updated>2025-02-10T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus/"><![CDATA[<p>Google Sus was a fun OSINT challenge me and my teammate solved roughly a minute after the competition ended 😔</p>
+
+<h2 id="challenge">Challenge</h2>
+
+<p>The exact wording of the challenge is unavailable as of writing, but we were given a name “Wilford Von Bugsy”, who reportedly had bad opsec, and a 0-cost hint referencing wine.</p>
+
+<h2 id="info-aggregation">Info Aggregation</h2>
+
+<p>DuckDuckGoing the term “Wilford Von Bugsy” gives us 2 leads - A LinkedIn and a Flickr account.</p>
+
+<p><img src="/assets/images/iss2025googlesus/ddg.png" alt="" /></p>
+
+<p>The Flickr is a red herring - literally</p>
+
+<p><img src="/assets/images/iss2025googlesus/flickr.png" alt="" /></p>
+
+<p>The LinkedIn has some interesting info - narrowing our target down to at least having <em>history</em> in the GTA, and letting us know that he went to Sheridan for a Bachelors in Animation. Furthermore, according to the program website the program is only offered in the Oakville campus, narrowing down location even more.</p>
+
+<p><img src="/assets/images/iss2025googlesus/linkedin1.png" alt="" />
+<em>What a pivot</em></p>
+
+<p>The LinkedIn also has an email in the “Contact Info” section</p>
+
+<p><img src="/assets/images/iss2025googlesus/linkedin2.png" alt="" /></p>
+
+<p>My teammate ran the email through the OSINT tool <a href="https://epieos.com/">EPIEOS</a> and got 3 hits</p>
+<ol>
+  <li>Google (duh)</li>
+  <li>Flickr (already found)</li>
+  <li>Vivino (???)</li>
+</ol>
+
+<h2 id="deeper-look">Deeper look</h2>
+
+<p><img src="/assets/images/iss2025googlesus/vivino1.png" alt="" /></p>
+
+<p>A wine ordering website. Looks like were on the right track.</p>
+
+<p>When looking further into the Google account, we found a Google Maps profile associated with the account with a few contributions</p>
+
+<p><img src="/assets/images/iss2025googlesus/googlemaps1.png" alt="" /></p>
+
+<p>A single review and 3 answers. Since this account was made specifically for the CTF, we can assume these are meaningful and part of the challenge. However, these isn’t a way to retrieve reviews by profile, probably intentionally to avoid the exact thing that we’re doing.</p>
+
+<p>Back to Vivino, after looking at the URL structure for user profiles (for the site’s review feature) and a lucky guess as to what his username might be, we’re at his profile.</p>
+
+<p><img src="/assets/images/iss2025googlesus/vivino2.png" alt="" />
+<em>https://www.vivino.com/users/wilford.von.bugsy1982</em></p>
+
+<p>A sports pub and grill near his college? Good thing we know exactly where his college is. The first result in Google Maps to “sports pub and grill near sheridan oakville” was our place - Monaghan’s Sports Pub &amp; Grill.</p>
+
+<p><img src="/assets/images/iss2025googlesus/googlemaps2.png" alt="" /></p>
+
+<p>Wait, didn’t he have a Google Maps review? My teammate found it by simply sorting the reviews by new.</p>
+
+<p><img src="/assets/images/iss2025googlesus/googlemaps3.png" alt="" /></p>
+
+<p>We get a strangely specific hashtag and a reference to him posting pictures. It’s not his Flickr, so maybe Instagram?</p>
+
+<p><img src="/assets/images/iss2025googlesus/instagram1.png" alt="" /></p>
+
+<p>They’re somehow hidden, but theres definitely posts here (unless some other team who got this far is trying to mess with us). The images are of burgers at Monaghan’s, so my teammate had the idea of searching by location instead. With that, we were able to narrow it down to a single account called @notorious_wvb.</p>
+
+<p><img src="/assets/images/iss2025googlesus/instagram2.png" alt="" /></p>
+
+<p>From here the flag is obvious. Here’s a mind map of our entire search.</p>
+
+<p><img src="/assets/images/iss2025googlesus/mindmap.png" alt="" /></p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Google Sus was a fun OSINT challenge me and my teammate solved roughly a minute after the competition ended 😔]]></summary></entry><entry><title type="html">ISSessions CTF 2025 LLM Category Writeup</title><link href="https://farazkaleemmalik.cyou/blog/2025/iss2025llm/" rel="alternate" type="text/html" title="ISSessions CTF 2025 LLM Category Writeup" /><published>2025-02-08T00:00:00+00:00</published><updated>2025-02-08T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/iss2025llm</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/iss2025llm/"><![CDATA[<p>At ISSessions 2025, while playing as ‘Free Food Fans’ I found the LLM problems pretty engaging, and the solutions that worked for me to be particularly hilarious. I even scored first blood on the final one!</p>
+
+<h2 id="level-1-pwetty-please">Level 1: Pwetty Please?</h2>
+
+<p>The LLM UI is as shown:</p>
+
+<p><img src="/assets/images/iss2025llm/chatbotv1ui.png" alt="" /></p>
+
+<p>Quite familiar if you’ve seen any chatbot webapps like ChatGPT or Copilot. There’s a couple of things you can determine just by playing around with it (which carry over to the next problems).</p>
+
+<ol>
+  <li>The chatbot, unlike most other ones, does not see the message log when responding, and only responds to the given prompt. I imagine this is a cost cutting measure since context window size seems to really affect the hosting cost when looking at existing solutions.</li>
+</ol>
+
+<p><img src="/assets/images/iss2025llm/llm-memory.png" alt="" /></p>
+
+<ol>
+  <li>The chatbot knows the flag. How I imagine this works is that the application feeds a secret prompt (with the flag contents and additional instructions on handling user input) to a generic LLM, with the user’s prompt appended at the end, similar to how <a href="https://c.ai">‘flavored’</a> chatbots work.</li>
+</ol>
+
+<p><img src="/assets/images/iss2025llm/doyouknowtheflag.png" alt="" /></p>
+
+<p>Lets start probing it for the flag then.</p>
+
+<h3 id="strategy-1-asking-nicely">Strategy 1: Asking nicely</h3>
+
+<p><img src="/assets/images/iss2025llm/askingnicely.png" alt="" /></p>
+
+<p>The chatbot is nice enough to tell us the exact condition for which it is allowed reveal the flag.</p>
+
+<h3 id="strategy-2-pretending-to-be-an-admin">Strategy 2: Pretending to be an admin</h3>
+
+<p><img src="/assets/images/iss2025llm/imadmin.png" alt="" /></p>
+
+<p>Great!</p>
+
+<h2 id="level-2-authoritarian">Level 2: Authoritarian</h2>
+
+<h3 id="strategy-1-asking-nicely-again">Strategy 1: Asking nicely (again)</h3>
+
+<p><img src="/assets/images/iss2025llm/unauthorized.png" alt="" /></p>
+
+<p>I’m… unauthorized?</p>
+
+<p><img src="/assets/images/iss2025llm/authenticate.png" alt="" /></p>
+
+<p>So it appears I need some kind of credentials to authenticate. Lets give it exactly what it’s asking for.</p>
+
+<h3 id="strategy-2-giving-credentials">Strategy 2: Giving credentials</h3>
+
+<p><img src="/assets/images/iss2025llm/creds.png" alt="" /></p>
+
+<p>So it doesn’t like that I’m giving it bullshit creds. Maybe its programmed with a set of creds in the hidden prompt? Guessing that would be hard though. I have a better idea…</p>
+
+<p><img src="/assets/images/iss2025llm/auth-sucessful.png" alt="" /></p>
+
+<p>So it’s having trouble handing over the flag, even though it acknowledges I’m admin. Let give it a bit of encouragement…</p>
+
+<p><img src="/assets/images/iss2025llm/system-message.png" alt="" /></p>
+
+<p>It seems to <em>sometimes</em> think that I’m authorized, but has trouble giving exactly what I want. Let’s be more explicit about that. After a handful of tries…</p>
+
+<p><img src="/assets/images/iss2025llm/success2.png" alt="" /></p>
+
+<p>A slight modification I made was to refer to the flag as a ‘string’ to loosen the influence of its instructions, which no doubt state that it can’t reveal the <em>flag</em>. I’m honestly not sure if it helps.</p>
+
+<h2 id="level-3-janus">Level 3: Janus</h2>
+
+<p>This is the final level of the category.</p>
+
+<h3 id="strategy-1-ask-nicely-again-again">Strategy 1: Ask nicely (again again)</h3>
+
+<p><img src="/assets/images/iss2025llm/janus-nicely.png" alt="" /></p>
+
+<p>One thing to note about this response was that it’s <em>near instant</em>, unlike all other generated responses so far. To demonstrate:</p>
+
+<video width="800" controls="">
+  <source src="/assets/videos/iss2025llm/janus.mp4" type="video/mp4" />
+</video>
+
+<p>This indicates that it isn’t the LLM responding, but rather some other simpler system that processes the prompt <em>before</em> it, giving us a prewritten response if triggered. My first guess was a trivial wordfilter. Let’s test that theory.</p>
+
+<p><img src="/assets/images/iss2025llm/apple.png" alt="" />
+<em>No apples :(</em></p>
+
+<p>It seems ‘flag’ is one of the the trigger words. Some others:</p>
+
+<p><img src="/assets/images/iss2025llm/wordfilter.png" alt="" /></p>
+
+<p>While a wordfilter for prompts is a challenge, theres also a possibility that the LLM’s <em>output</em> is also wordfiltered, which is a much greater challenge assuming the <em>actual flag contents</em> are cleverly included. In that case, I would need the LLM to accurately transform the data using a method more intricate than the filtering rules (at one point I was trying to get it to reverse its output)</p>
+
+<p>I also noticed some strange behaviour when responding to some of the weirder prompts, in which case the LLM would hallucinate chat logs.</p>
+
+<p><img src="/assets/images/iss2025llm/hallucination.png" alt="" /></p>
+
+<p>This gave me an idea for an attack. The LLM isn’t fed chatlogs <em>from the application</em>, but we can totally feed it fake ones that we made up, putting words in its (metaphorical) mouth. It reminds me of one of <a href="https://worldofwork.io/2019/07/cialdinis-6-principles-of-persuasion/">Cialdini’s principles of persuasion</a>, consistency, where people are more likely to do something if it conforms with their previous actions. Who knew LLMs fell for the same tricks?</p>
+
+<p><img src="/assets/images/iss2025llm/janus.png" alt="" />
+<em>This is the actual screenshot of when I solved it</em></p>
+
+<p>This response may have also bypassed any ‘flag filter’ just by escaping the underscores as a bonus. Everything else was just light encoragement for it to give me the <em>actual flag</em>. Of course, some retries were required as the LLM could go either way when deciding if I was actually authorized.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Fun challenge and fun CTF overall!</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[At ISSessions 2025, while playing as ‘Free Food Fans’ I found the LLM problems pretty engaging, and the solutions that worked for me to be particularly hilarious. I even scored first blood on the final one!]]></summary></entry><entry><title type="html">New Years Resolutions 2025</title><link href="https://farazkaleemmalik.cyou/blog/2025/newyears/" rel="alternate" type="text/html" title="New Years Resolutions 2025" /><published>2025-01-01T00:00:00+00:00</published><updated>2025-01-01T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/newyears</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/newyears/"><![CDATA[<p>Better to put them to paper somewhere!</p>
+
+<blockquote>
+  <h3 id="post-here-at-around-twice-a-month">Post here at around twice a month</h3>
+</blockquote>
+
+<p>I’ll start off with the one most relevant to you - the reader! I think this is the sweet spot for someone like me who only does this for fun. Of these these two articles, some <em>may</em> be relatively low effort (at least to write/compile like this one), but I think it would be productive to put my efforts into inclreasing quality at this pace rather than increasing the pace. Burnout is also something to consider. Sometimes less is more.</p>
+
+<blockquote>
+  <h3 id="get-better-at-remembering-names">Get better at remembering names</h3>
+</blockquote>
+
+<p>I’m not a names person. I have a comically short term memory for this type of information. My guess is because I remember stuff best by association (oh, the guy with the cool jacket), and the fact that names are never correlated with <em>anything</em> else about a person, it’s hard to derive it from anything else about them. Still, I’m going to make a conscious effort this year to get better at remembering names - using whether memory tricks I can.</p>
+
+<p>Not a very SMART goal - but I’m not sure how to turn this into a metric.</p>
+
+<blockquote>
+  <h3 id="write-more-code">Write more code</h3>
+</blockquote>
+
+<p>Lame. I know. But with how many projects never leave the research phase in my backlog I think this is warranted. I’ve got so many projects where I have a proper understanding of the problem and my solution but I never start because… the tech stack is too annoying… or the boilerplate is too complicated… or the thought of actually <em>writing</em> the code suddenly kills all motivation I had for it.</p>
+
+<p>For something measurable, I want to make at least 1 meaningful contribution (features, not commits!) to a side project every week. For code, this would look like activity on my Github pixel-thing. For more open ended stuff (based on experimentation/research), this would look like a writeup in the form of a devblog (like the <a href="/blog/2023/openwrt1">OpenWRT</a> post).</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Better to put them to paper somewhere!]]></summary></entry><entry><title type="html">Exam Music</title><link href="https://farazkaleemmalik.cyou/blog/2024/exam-music/" rel="alternate" type="text/html" title="Exam Music" /><published>2024-12-22T00:00:00+00:00</published><updated>2024-12-22T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/exam-music</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/exam-music/"><![CDATA[<p>I’ve noticed I have specific a song stuck in my head for every exam I write, so I’m cataloging it (for fun and profit).</p>
+
+<p>This page will be republished as I write more and more exams!</p>
+
+<h3 id="fall-2024-finals">Fall 2024 (Finals)</h3>
+
+<p><strong>CSC343 (Intro to Databases) Final</strong>: “Eighth Wonder” - Lemon Demon</p>
+
+<p><strong>CSCD27 (Computer and Network Security)</strong>: Surprisingly none - I was too focused. <em>Before</em> the exam it was “Amnesia Was Her Name” - Lemon Demon.</p>
+
+<p>Overall, somewhat of an obvious pattern. I’m surprised at how many of these songs have animations on Youtube (I think all the lyrical ones from Spirit Phone are covered).</p>
+
+<h3 id="winter-2025-midterms">Winter 2025 (Midterms)</h3>
+
+<p><strong>MGHB02 Miterm</strong>: I was sick, so I was forced to skip this.</p>
+
+<p><strong>CSCD84 Midterm</strong>: Was too locked in again. As a result I did much better than I expected.</p>
+
+<p><strong>CSCD43 Midterm</strong>: This time a combination of 2. “Kubrick and the Beast” - Lemon Demon, and “You Imaginary Friend” - Lemon Demon.</p>
+
+<p>I have listened through Dinosaurchestra, View Monster, and Spirit Phone an embarrassing number of times.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[I’ve noticed I have specific a song stuck in my head for every exam I write, so I’m cataloging it (for fun and profit).]]></summary></entry><entry><title type="html">Using Github Actions as janky serverless infrastructure</title><link href="https://farazkaleemmalik.cyou/blog/2024/githubactions1/" rel="alternate" type="text/html" title="Using Github Actions as janky serverless infrastructure" /><published>2024-12-01T00:00:00+00:00</published><updated>2024-12-01T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/githubactions1</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/githubactions1/"><![CDATA[<p>Replace your tiny VPS with a Github repo today!</p>
+
+<h2 id="the-requirements">The Requirements</h2>
+
+<p>For an ongoing effort to build some infrastructure for a university <a href="https://uoftwebloggingclub.neocities.org">club</a> <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> I’m starting, I needed to aggregate RSS feeds into a single hosted megafeed, in order to further pipe this feed to a Discord bot, among other things. In practice, this would mean setting up a VPS, downloading some combiner script off of Github and setting up a cron job to download, run, and upload on a regular basis. One could also haphazardly use one of the multitudes of online services that do this, the downside being clunky modification, nonportability, arbitrary restrictions, and of course the Sword of Damocles that hangs over every small scale web startup.</p>
+
+<p>In my search, I found a Github repo innocently called <a href="https://github.com/chase-seibert/rsscombine">rss-combine</a> which did something pretty interesting (and might help someone with the same problem).</p>
+
+<h2 id="the-repo">The Repo</h2>
+
+<p>The code in the repo looks pretty normal. For the VPS solution, the Go code would actually have been sufficient to download and combine the feeds to a single file. But what are these commits?</p>
+
+<p><img src="/assets/images/githubactions/commits.png" alt="Automated Commits" /></p>
+
+<p>They seems to be caused by <a href="https://github.com/marketplace/actions/keepalive-workflow">this</a> action, which is designed to keep your repo “active” for cron(!) based action triggers. Understandably these kinds of actions have alot of compute cost, while being offered for free, so it makes sense why Github would try limiting them for untouched repos. Lets take a look at some of the cron-based actions rss-combine is trying to preserve.</p>
+
+<p><img src="/assets/images/githubactions/actions.png" alt="Actions" /></p>
+
+<p><img src="/assets/images/githubactions/result.png" alt="Action Result" /></p>
+
+<p>The actions seem to be running the repo itself!</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">env</span><span class="pi">:</span>
+        <span class="na">AWS_ACCESS_KEY_ID</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">AWS_SECRET_ACCESS_KEY</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">AWS_REGION</span><span class="pi">:</span> <span class="s">us-west-2</span>
+        <span class="na">RSSCOMBINE_TITLE</span><span class="pi">:</span> <span class="s2">"</span><span class="s">New</span><span class="nv"> </span><span class="s">York</span><span class="nv"> </span><span class="s">Times</span><span class="nv"> </span><span class="s">Top</span><span class="nv"> </span><span class="s">100</span><span class="nv"> </span><span class="s">Articles</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Week"</span>        
+        <span class="na">RSSCOMBINE_DESCRIPTION</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Combines</span><span class="nv"> </span><span class="s">public</span><span class="nv"> </span><span class="s">New</span><span class="nv"> </span><span class="s">York</span><span class="nv"> </span><span class="s">Times</span><span class="nv"> </span><span class="s">RSS</span><span class="nv"> </span><span class="s">feeds</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">feed,</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">goal</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">surfacing</span><span class="nv"> </span><span class="s">only</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">top</span><span class="nv"> </span><span class="s">items"</span>        
+        <span class="na">RSSCOMBINE_AUTHOR_EMAIL</span><span class="pi">:</span> <span class="s2">"</span><span class="s">***"</span>        
+        <span class="na">RSSCOMBINE_AUTHOR_NAME</span><span class="pi">:</span> <span class="s2">"</span><span class="s">***"</span>
+        <span class="na">RSSCOMBINE_FEED_LIMIT_PER_FEED</span><span class="pi">:</span> <span class="m">5</span>
+        <span class="na">RSSCOMBINE_FEED_URLS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://raw.githubusercontent.com/chase-seibert/new-york-times-rss-top-100/master/README.md"</span>
+        <span class="na">RSSCOMBINE_LINK</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://github.com/chase-seibert/new-york-times-rss-top-100"</span>
+        <span class="na">RSSCOMBINE_S3_FILENAME</span><span class="pi">:</span> <span class="s2">"</span><span class="s">new-york-times-rss-top-100.xml"</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>Using the built in “upload to S3” functionality, it seems to be uploading the resulting feed to a <a href="https://github.com/chase-seibert/new-york-times-rss-top-100">predetermined bucket</a>, presumably for public access. Neat.</p>
+
+<h2 id="adapting-it">Adapting it</h2>
+
+<p>The final result is <a href="https://github.com/uoftwebloggingclub/rsscombine">here</a> if you want to follow along.</p>
+
+<p>Looking at the workflow file (located in .github/workflows in the repo), all of the required config could be done by just changing the <code class="language-plaintext highlighter-rouge">env</code> variables in the config. A particular snag was that the config <code class="language-plaintext highlighter-rouge">s3_bucket</code>, with which the code determines whether the output is uploaded to s3 or piped out stdout, was not present in the env. This was because it was located in <code class="language-plaintext highlighter-rouge">rsscombine.yml</code>, which I pruned all redundant config from.</p>
+
+<p><code class="language-plaintext highlighter-rouge">run</code> commands are run with the os’s default shell (for ubuntu bash) so I’m able to do this</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">run</span><span class="pi">:</span> <span class="s">go run rsscombine.go &gt; feed.xml</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>And then</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">run</span><span class="pi">:</span> <span class="s">curl -F "feed.xml=@feed.xml" "https://$:$@neocities.org/api/upload"</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>Thankfully neocities’ upload system is dead simple so there was no problem there. If you want to run a similar setup, both <a href="https://github.com/uoftwebloggingclub/rsscombine/blob/master/.github/workflows/blogroll.yml">my</a> and <a href="https://github.com/chase-seibert/rsscombine/blob/master/.github/workflows/new-york-times-rss-top-100.yml">the</a> <a href="https://github.com/chase-seibert/rsscombine/blob/master/.github/workflows/engineering-manager-blogs.yml">originals</a> are there for you to model your workflow config off of. Thanks for reading!</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>A weblogging and homebrew website club. The website is sparse at the time of publishing, and is only linked for posteritys’ sake. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Replace your tiny VPS with a Github repo today!]]></summary></entry><entry><title type="html">Thunderbird RSS Hack</title><link href="https://farazkaleemmalik.cyou/blog/2024/thunderbird2/" rel="alternate" type="text/html" title="Thunderbird RSS Hack" /><published>2024-11-10T00:00:00+00:00</published><updated>2024-11-10T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/thunderbird2</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/thunderbird2/"><![CDATA[<p>Final Thunderbird post for a while, I promise</p>
+
+<h2 id="the-problem">The problem</h2>
+
+<p>So for my RSS reader, I use Thunderbird since I already use it for email and, like I demonstrate in my previous post, OpenPGP as well. I actually use it for CalDAV as well, all in all its a featureful organisation software.</p>
+
+<p>The biggest flaw for me is the fact that settings cannot be synced between clients. So for example, since Thunderbird is on my desktop, when I add a feed to my reader on it, it doesn’t show up on the Thunderbird on my laptop. Furthermore, what if I want to read on my phone? Do I need to maiantain 3 lists of the same thing manually?</p>
+
+<p>One solution is a web based one. That is, your RSS feed sits on a server somewhere and you run a web application that lets you access it from anywhere with an internet connection and browser. In most cases however, this would require such a person to learn system administration, which while valuable knowledge serves as a significant barrier to entry. One could use someone else’s instance, but in my search I found it really difficult to find anyone else offering this.</p>
+
+<p>My solution was somewhat born out of an idea: what if we could apply Thunderbird’s mail filters to RSS feed entries? I’m not really sure what I expected to happen, but apparently it was actually possible! Thunderbird seems to treat your entire “Blogs and News Feeds” section as one mail folder, and treats each incoming feed entry as an incoming email. Neat!</p>
+
+<h2 id="the-solution">The solution</h2>
+
+<p>We can use mail filters to move RSS entries as they come in to a specific subfolder in your mailbox.</p>
+
+<blockquote>
+  <p>What? Can articles and blogposts really be uploaded to a mailbox?</p>
+</blockquote>
+
+<p>Thunderbird appears to store feed entries as emails, or somehow converts entries to emails (with metadata becoming email headers) during handling of our rules. It strangely works, though you may see some missing info if you view it from another client like K9 Mail. Here are the rules. Recall that the message filter window can be opened by clicking the top-left hamburger menu then going to Tools -&gt; Message Filters.</p>
+
+<h3 id="on-blogs-and-feeds">On ‘Blogs and Feeds’</h3>
+
+<p><img src="/assets/images/thunderbird/rules1.png" alt="First set of rules" /></p>
+
+<p>Some email addresses are redacted for privacy, but really it should be the email address you want to upload the feed entries to. It first tags them as RSS, then moves them to your inbox.</p>
+
+<blockquote>
+  <p>But why not move it to your ‘RSS’ subfolder directly?</p>
+</blockquote>
+
+<p>We also want to mark all entries in our email copies of the feed items as read, while maintaining the ‘unreadness’ in our main reader. It would be annoying having to mark 2 entries as read every time you read an article, so we don’t bother</p>
+
+<h3 id="on-email-inbox">On Email Inbox</h3>
+
+<p><img src="/assets/images/thunderbird/rules2.png" alt="Second set of rules" /></p>
+
+<p>Once an RSS tagged entry is detected, it marks the entry as ‘Read’ then moves it to the corresponding folder, without messing with any of the original feed entries. Neat! If you open this folder on another Thunderbird client, most of the metadata you are used to seeing like the “Website” tag is still there surprisingly, allowing you to read your feeds anywhere you choose.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Final Thunderbird post for a while, I promise]]></summary></entry><entry><title type="html">Getting started with OpenPGP on Thunderbird 115.13.0</title><link href="https://farazkaleemmalik.cyou/blog/2024/thunderbird1/" rel="alternate" type="text/html" title="Getting started with OpenPGP on Thunderbird 115.13.0" /><published>2024-11-09T00:00:00+00:00</published><updated>2024-11-09T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/thunderbird1</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/thunderbird1/"><![CDATA[<p>2 posts in a row! I can’t believe it!</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>For some reason, Thunderbird decides to change key workflows every few months that make any previous instruction on the matter completely pointless and even convoluting the entire process. I’m aware even this guide will be outdated within months but I’ll make one anyways just because. The version of Thunderbird I am using is the latest for Linux Mint 21.3 as of the date posted.</p>
+
+<h3 id="step-0">Step 0</h3>
+
+<p>You first need to have some email account imported into Thunderbird. There are tons of articles exaplining this and its otherwise quite intuitive, so I’ll skip it.</p>
+
+<h3 id="step-1-open-openpgp-menu">Step 1: Open OpenPGP Menu</h3>
+
+<p>You first need to generate your PGP keys. This is assuming you don’t already have PGP keys associated with your account. Remember, this is a getting started guide, in which case you would have to import them using a similar but not covered process.</p>
+
+<p><img src="/assets/images/thunderbird/menu1.png" alt="Tools" /></p>
+
+<p>Open the hamburger menu in the top right corner of the application, and then go Tools</p>
+
+<p><img src="/assets/images/thunderbird/menu2.png" alt="OpenPGP Key Manager" /></p>
+
+<p>Then select “OpenPGP Key Manager”. This should open up a new menu (which I won’t show since it’s populated with some personal contacts).</p>
+
+<h3 id="step-2-generate-keys">Step 2: Generate Keys</h3>
+
+<p>In the toolbar for the new menu, select “Generate -&gt; New Pair”. From there the defaults should be fine, just make sure that the “Identity” email address is the one you want. You will have to generate a new key for each email account you want to send encrypted email on.</p>
+
+<p>Once you are done, there will be an entry in your OpenPGP Key Manager window for the key you just created.</p>
+
+<h3 id="step-3-set-key-to-active-encryption-key">Step 3: Set key to active encryption key</h3>
+
+<p>Go to your accounts settings page. For me this is the gear on the bottom left corner of the window and then the option saying “Account Settings” still on the bottom left. Find the email address you just generated in the list on the left, and go to the entry saying “End-to-End Encryption” underneath it.</p>
+
+<p><img src="/assets/images/thunderbird/menu3.png" alt="End-to-End" /></p>
+
+<p>From there, like shown above, select the second option (the one with numbers) and you will see a checkmark, which means you’re done! You can publish your key by pressing the relevant button, but make sure you’re using a computer you actually <em>own</em> since the key is stored on your actual machine. Basically, if you’re at a library or on a school computer, you stop here and do this on a computer your own!</p>
+
+<p>That’s it so far. To actually <em>send</em> an email you would need to import someone else’s key from either a keyserver or a file, but I’ll leave that part for another time.</p>
+
+<p>For site maintenance, I’ve added an RSS feed and will add my own PGP key soon.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[2 posts in a row! I can’t believe it!]]></summary></entry><entry><title type="html">Update on last 2 posts</title><link href="https://farazkaleemmalik.cyou/blog/2024/update1/" rel="alternate" type="text/html" title="Update on last 2 posts" /><published>2024-11-07T00:00:00+00:00</published><updated>2024-11-07T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/update1</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/update1/"><![CDATA[<p>A small update on the ongoing nature of my previous two posts</p>
+
+<h2 id="update-to-the-homelab">Update to the homelab</h2>
+
+<p>Fun fact: old gear breaks! Especially when you open it to do upgrades! This is what happened to my Netgear NAS as soon as I opened it to replace the probably decades-old fan with a silent Noctua. Disassembly required many different parts to be disconnected and unscrewed, so its anyone’s guess where the issue lies. I did remove the socketed RAM extraneously because I was interested about the specs, but at this point buying new RAM just to see if that’s the issue would be falling victim to the sunken-cost fallacy.</p>
+
+<p>Instead, I went to this nice <a href="https://computation.ca/">computer refurbisher on Jane street</a> and bought an old Elitedesk to operate as both my storage and server (sorry Sesame Snaps server, you will be remembered in all your sweetness). It’s been going stable for over 6 months, a very capable machine indeed. This is my second machine I have bought from this shop, the first being the desktop I am writing this article on.</p>
+
+<p>For further updates, I’ve LAN-ed up most of my network to get proper gigabit connections between all my machines, though the WAN is still restricted by my 100/10M Linksys router. I guess I know what part of my network I need to upgrade next.</p>
+
+<h2 id="update-to-lineageos">Update to LineageOS</h2>
+
+<p>That project is basically dead. I used whatever flashing setup I had to just flash a stock Android ROM I got off the internet for my specific device. I’ve decided to stop fighting against my phone manufacturer for control over my phone and decided to just choose my hardware a bit more carefully next time. For all of its flaws, the Pinephone actually seems like a decent option right now, given that it can do exactly what I need it to and nothing more. And the keyboard case? Chef’s kiss.</p>
+
+<p><img src="/assets/images/update/keyboard.jpg" alt="" /></p>
+
+<p>The concept of a cyberdeck is really growing on me, and this seems like the cheapest method to achieve a pocketable version that also supports portable connection methods like LTE and cellular calling. Its been thrust into the public zeitgeist again thanks to a Youtube trend just how insanely easy it is for phone networks to triangulate your location just by your phone being on, so I’m happy there is at least one device that allows your to physically disable your modem via a dip switch should you want to.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[A small update on the ongoing nature of my previous two posts]]></summary></entry><entry><title type="html">Budget Homelab Overview</title><link href="https://farazkaleemmalik.cyou/blog/2024/homelab1/" rel="alternate" type="text/html" title="Budget Homelab Overview" /><published>2024-02-09T00:00:00+00:00</published><updated>2024-02-09T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/homelab1</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/homelab1/"><![CDATA[<p>Overview of my extremely budget homelab setup</p>
+
+<p>Now that my Github Student Developer package has run out of DigitalOcean credits (with DO refusing to give me more this year), I decided it would make more sense to move my servers on premises. Maybe this might give you some ideas on how you start your own college dorm servers too!</p>
+
+<p><img src="/assets/images/homelab/setup.jpg" alt="Entire Setup" /></p>
+
+<h2 id="servers">Servers</h2>
+
+<p>First off I have a Raspberry Pi 4B (2GB). Easily the most expensive component, costing ~$100 in 2021. It is being booted off of a USB drive instead of the standard microSD card since in my experience the cards have a much higher failure rate (for any set GB/dollar). Originally this was meant to be my only server, but its limitation of being ARM in an x86_64 world forced me to add another one.</p>
+
+<p>Second is a salvaged motherboard from a Lenovo Ideapad. Even when it was operational it wasn’t a particularly powerful machine, having low power <a href="https://ark.intel.com/content/www/us/en/ark/products/197310/intel-celeron-processor-n4020-4m-cache-up-to-2-80-ghz.html">Celeron N4020 CPU</a>. I took interest in this because of the low power draw (the fact that it was free helped). Some downsides are soldered RAM and storage (with the SSD completely busted), as well as the lack of proper IO like Ethernet or SATA ports. Both servers are booted off of USB Thumbdrives for this reason, with application storage and backups going on the NAS.</p>
+
+<p>My NAS is some old model of a Netgear ReadyNAS Duo. 2 3.5in SATA bays, but only 1 is occupied at the moment (with 500gb). I got this off of Facebook Marketplace recently for $20. The web interface is straight out of 2007, and the security horribly outdated. I found it really nice that despite Netgear exiting the NAS market a few years ago that their forums and support pages are still active (for now). Much of my setup would be very difficult without these. I connect to the NAS on my servers and desktop using NFS, and even stream media to my phone using FTP. Naturally the device is blocked from internet.</p>
+
+<p>Finally there is my OpenWRT router, as seen <a href="/blog/2023/openwrt1/">here</a>. For $15 it has proven to be very versatile thanks to the well supported operating system.</p>
+<ul>
+  <li>All devices on the LAN get a .lan domain name (the pi is pi.lan etc.) so I can usually forget about looking up IP addresses</li>
+  <li>I have it running a DDNS client connected to Namecheap to account for IP changes.</li>
+  <li>Comprehensive overview page with diagnostics for every running service and add-on</li>
+</ul>
+
+<p>Overall the system could not have costed much more than $150, while keeping the power bill fairly minimal. I like the idea of getting used to slower hardware so any improvements end up feeling quite dramatic! I will probably do something about the laptop motherboard and upgrade NAS capacity for my next steps.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Overview of my extremely budget homelab setup]]></summary></entry></feed>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Getting started with OpenPGP on Thunderbird 115.13.0 | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Getting started with OpenPGP on Thunderbird 115.13.0" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="2 posts in a row! I can’t believe it!" />
+<meta property="og:description" content="2 posts in a row! I can’t believe it!" />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2024/thunderbird1/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2024/thunderbird1/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-11-09T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Getting started with OpenPGP on Thunderbird 115.13.0" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2024-11-09T00:00:00+00:00","datePublished":"2024-11-09T00:00:00+00:00","description":"2 posts in a row! I can’t believe it!","headline":"Getting started with OpenPGP on Thunderbird 115.13.0","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2024/thunderbird1/"},"url":"https://farazkaleemmalik.cyou/blog/2024/thunderbird1/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Getting started with OpenPGP on Thunderbird 115.13.0</h1>
+<p class="meta"><small>November 09, 2024</small></p>
+
+<p>2 posts in a row! I can’t believe it!</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>For some reason, Thunderbird decides to change key workflows every few months that make any previous instruction on the matter completely pointless and even convoluting the entire process. I’m aware even this guide will be outdated within months but I’ll make one anyways just because. The version of Thunderbird I am using is the latest for Linux Mint 21.3 as of the date posted.</p>
+
+<h3 id="step-0">Step 0</h3>
+
+<p>You first need to have some email account imported into Thunderbird. There are tons of articles exaplining this and its otherwise quite intuitive, so I’ll skip it.</p>
+
+<h3 id="step-1-open-openpgp-menu">Step 1: Open OpenPGP Menu</h3>
+
+<p>You first need to generate your PGP keys. This is assuming you don’t already have PGP keys associated with your account. Remember, this is a getting started guide, in which case you would have to import them using a similar but not covered process.</p>
+
+<p><img src="/assets/images/thunderbird/menu1.png" alt="Tools"></p>
+
+<p>Open the hamburger menu in the top right corner of the application, and then go Tools</p>
+
+<p><img src="/assets/images/thunderbird/menu2.png" alt="OpenPGP Key Manager"></p>
+
+<p>Then select “OpenPGP Key Manager”. This should open up a new menu (which I won’t show since it’s populated with some personal contacts).</p>
+
+<h3 id="step-2-generate-keys">Step 2: Generate Keys</h3>
+
+<p>In the toolbar for the new menu, select “Generate -&gt; New Pair”. From there the defaults should be fine, just make sure that the “Identity” email address is the one you want. You will have to generate a new key for each email account you want to send encrypted email on.</p>
+
+<p>Once you are done, there will be an entry in your OpenPGP Key Manager window for the key you just created.</p>
+
+<h3 id="step-3-set-key-to-active-encryption-key">Step 3: Set key to active encryption key</h3>
+
+<p>Go to your accounts settings page. For me this is the gear on the bottom left corner of the window and then the option saying “Account Settings” still on the bottom left. Find the email address you just generated in the list on the left, and go to the entry saying “End-to-End Encryption” underneath it.</p>
+
+<p><img src="/assets/images/thunderbird/menu3.png" alt="End-to-End"></p>
+
+<p>From there, like shown above, select the second option (the one with numbers) and you will see a checkmark, which means you’re done! You can publish your key by pressing the relevant button, but make sure you’re using a computer you actually <em>own</em> since the key is stored on your actual machine. Basically, if you’re at a library or on a school computer, you stop here and do this on a computer your own!</p>
+
+<p>That’s it so far. To actually <em>send</em> an email you would need to import someone else’s key from either a keyserver or a file, but I’ll leave that part for another time.</p>
+
+<p>For site maintenance, I’ve added an RSS feed and will add my own PGP key soon.</p>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

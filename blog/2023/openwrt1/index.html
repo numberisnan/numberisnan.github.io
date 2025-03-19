@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Installing OpenWRT onto Linksys E5400 | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Installing OpenWRT onto Linksys E5400" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I installed OpenWRT on a router using the TFTP method, using a Linux system as the host." />
+<meta property="og:description" content="I installed OpenWRT on a router using the TFTP method, using a Linux system as the host." />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2023/openwrt1/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2023/openwrt1/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-09-10T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Installing OpenWRT onto Linksys E5400" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2023-09-10T00:00:00+00:00","datePublished":"2023-09-10T00:00:00+00:00","description":"I installed OpenWRT on a router using the TFTP method, using a Linux system as the host.","headline":"Installing OpenWRT onto Linksys E5400","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2023/openwrt1/"},"url":"https://farazkaleemmalik.cyou/blog/2023/openwrt1/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Installing OpenWRT onto Linksys E5400</h1>
+<p class="meta"><small>September 10, 2023</small></p>
+
+<p>I installed OpenWRT on a router using the TFTP method, using a Linux system as the host.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>A lot of these instructions can be derived from the <a href="https://openwrt.org/toh/linksys/e5400" target="_blank" rel="noopener noreferrer">official OpenWRT page</a> for the E5400 but the details were a bit sparse, so I needed to do lots of Googling on my own. This post is a compilation of information needed to complete the installation and setup. Unlike the wiki, these instructions are comprehensive and detailed on where I managed to stumble.</p>
+
+<h3 id="step-1-opening-the-router">Step 1: Opening the router</h3>
+<p>We need a way to interact with the bootloader. We do this by opening a serial console via UART.</p>
+
+<p>We first need to open the router, by tearing through the sticker and unscrewing at the locations below.
+<img src="/assets/images/openwrt/back.jpg" alt="">
+Then, run a shim across the top lid, and attempt to slide off the cover towards the front of the router. This part was surprisingly difficult for me; I broke a few plastic bits before finally getting it off. The router should now look as below.
+<img src="/assets/images/openwrt/open.jpg" alt="">
+Carefully remove the antenna connectors at the bottom center-left, the slide the pcb out of the case.</p>
+
+<h3 id="step-2-soldering-pin-headers">Step 2: Soldering pin headers</h3>
+<p>The pcb should needs to be soldered with a 5-pin breakaway header where shown. Remember to have the long parts pointing up, and the plastic bit above the pcb.
+<img src="/assets/images/openwrt/pcb_sol.jpg" alt="">
+This is great practice for someone learning to solder, so don’t let this daunt you! Now you can place the board into its case, and reattach antennae.
+<img src="/assets/images/openwrt/open_sol.jpg" alt=""></p>
+
+<h3 id="step-3-uart-wiring">Step 3: UART Wiring</h3>
+<hr>
+<h3 id="warning-doing-this-with-an-arduino-is-a-terrible-idea-risk-of-burning-board">Warning: Doing this with an Arduino is a terrible idea! RISK OF BURNING BOARD!</h3>
+<p>According to <a href="https://openwrt.org/toh/linksys/e5400" target="_blank" rel="noopener noreferrer">the relevant wiki article</a>, the router expects a 3.3v serial connection, while an Arduino Uno uses 5v logic for TTL. It didn’t burn my model, but someone following my instructions has reportedly burned out thiers. Use a proper USB-Serial connector like below, and make sure to set it to 3.3v logic by moving the yellow connector to VCC and 3V3!
+<img src="/assets/images/openwrt/usb_serial.jpg" alt="">
+For wiring, according to the <a href="https://openwrt.org/toh/linksys/e5400" target="_blank" rel="noopener noreferrer">wiki page</a> the pinout (from back to front with the router facting forwards) is</p>
+<ul>
+  <li>VCC</li>
+  <li>TX (or TXD)</li>
+  <li>RX (or RXD)</li>
+  <li>(Empty)</li>
+  <li>GND</li>
+</ul>
+
+<p>Connect these to the corresponding pins on your USB board, remembering to swap RX(D) and TX(D).</p>
+
+<hr>
+<p>We now need to communicate the router. To do this you will need a UART to USB adapter. While this can be bought individually, many microcontroller boards have one built in that we can abuse. Here I use an Arduino Uno, and connect the RESET pin to GND for the desired effect.
+<img src="/assets/images/openwrt/serial.jpg" alt="">
+The Uno is connected to the host system through USB. The female-to-male jumper wires are connected as shown:
+<img src="/assets/images/openwrt/wiring.png" alt="">
+Note that although a shared ground may not be required for this case I include it just to be safe.</p>
+
+<h3 id="step-4-creating-a-terminal">Step 4: Creating a Terminal</h3>
+<p>Now, we need to open a terminal with Linux. We will be using <code class="language-plaintext highlighter-rouge">screen</code> so you must install it if you do not already have it. It is a well known Linux package.
+First we need to get the device path of our Arduino. There are many ways to do this, but here is a very simple one. First run (with Arduino unplugged)</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /dev/ <span class="o">&gt;</span> ./before.txt
+</code></pre></div></div>
+<p>Now plug in your Arduino.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /dev/ <span class="o">&gt;</span> ./after.txt
+diff before.txt after.txt
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>86d85
+&lt; serial
+161d159
+&lt; ttyACM0
+</code></pre></div></div>
+<p>So our device path is /dev/ttyACM0. The path we are looking for must have ‘tty’ since we have a serial device. Remember to <code class="language-plaintext highlighter-rouge">rm before.txt after.txt</code> when done!</p>
+
+<p>To create your terminal, run</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>screen /dev/ttyACM0 115200 <span class="c"># 115200 is the baud rate used by the router</span>
+</code></pre></div></div>
+<p>This should clear your terminal. If the device you are using has RX and TX lights, then typing should cause one of them to light up. If you press enter while the router is on, you should have a simple terminal prompt show up.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#
+</code></pre></div></div>
+<p>Try running <code class="language-plaintext highlighter-rouge">ls</code>.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls</span> /
+</code></pre></div></div>
+<p>If you get reasonable output, success!</p>
+
+<h3 id="step-5-default-firmware-setup">Step 5: Default Firmware Setup</h3>
+<p>We will use the TFTP method to install the new firmware. This works by hosting a TFTP server with our firmware image, then instructing the routers bootloader to fetch it and execute. First, restart your router (without disconnecting UART). You will get alot of bootlog text, but wait until this prompt appears:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Please choose the operation:
+   1: Load system code to SDRAM via TFTP.
+   2: Load system code then write to Flash via TFTP.
+   3: Boot system code via Flash (default).
+   4: Entr boot command line interface.
+   7: Load Boot Loader code then write to Flash via Serial.
+   9: Load Boot Loader code then write to Flash via TFTP.
+</code></pre></div></div>
+<p>Input a 4. Then input the following commands</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>setenv serverip 192.168.1.1
+setenv ipaddr 192.168.1.100
+setenv bootfile openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin
+saveenv
+reset <span class="c"># Reboots the router</span>
+</code></pre></div></div>
+<p>These set the default values for a later step. The IP addresses were chosen arbitrarily, though I cannot guarantee that any valid combination will work.</p>
+
+<h3 id="step-6-tftp-server-setup">Step 6: TFTP Server Setup</h3>
+<p>First we install a TFTP server to our Linux machine. Since my machine uses Mint, I used <a href="https://help.ubuntu.com/community/TFTP" target="_blank" rel="noopener noreferrer">this</a> guide. However the guide contains a major inaccuracy so I will simplify it here. First</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get <span class="nb">install </span>tftpd-hpa
+<span class="nb">sudo </span>service tftpd-hpa status
+</code></pre></div></div>
+<p>If you see ‘Running’, then your TFTP server is already up (press q to exit)! Now we need to make it host our firmware file. First download it from <a href="https://downloads.openwrt.org/snapshots/targets/ramips/mt76x8/openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin" target="_blank" rel="noopener noreferrer">here</a>. Then move it to /srv/tftp. This is from where tftp-hpa serves its files by default, but the linked guide mentions a different path.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ~/Downloads/openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin /srv/tftp/openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin
+</code></pre></div></div>
+<p>If you want to confirm that your file is being hosted, try</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tftp <span class="nt">-gr</span> openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin 127.0.0.1:69 <span class="c"># Download from local server</span>
+diff ./openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin /srv/tftp/openwrt-ramips-mt76x8-linksys_e5400-initramfs-kernel.bin
+</code></pre></div></div>
+<p>If the <code class="language-plaintext highlighter-rouge">diff</code> shows no output, then your TFTP server is setup. Connect your router to your PC’s Ethernet port. Note that you need to disable DHCP and manually set your IP to 192.168.1.100 (as set previously). Without this your system will not establish a connection. I did this using Cinnamon’s “Network Settings”, but it’s highly dependant on your Desktop Environment.</p>
+
+<h3 id="step-7-downloading-firmware">Step 7: Downloading Firmware</h3>
+
+<p>Back to your router. Restart it by either running <code class="language-plaintext highlighter-rouge">reboot</code> or unplugging (we don’t really care about filesystem integrity at this stage). When it asks you for a boot mode, enter the number 1. Then keep using the default option by pressing enter. These will be the values you set in Step 5. After that, the bootloader will download the image then boot into OpenWRT. You should see a prompt similar to</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  _______                     ________        __
+ |       |.-----.-----.-----.|  |  |  |.----.|  |_
+ |   -   ||  _  |  -__|     ||  |  |  ||   _||   _|
+ |_______||   __|_____|__|__||________||__|  |____|
+          |__| W I R E L E S S   F R E E D O M
+ -----------------------------------------------------
+ OpenWrt SNAPSHOT, r19314+2-8822a8d850
+ -----------------------------------------------------
+=== WARNING! =====================================
+There is no root password defined on this device!
+Use the "passwd" command to set up a new password
+in order to prevent unauthorized SSH logins.
+--------------------------------------------------
+root@OpenWrt:/# 
+</code></pre></div></div>
+<p>Run <code class="language-plaintext highlighter-rouge">passwd</code> and set it.</p>
+
+<h3 id="step-8-upgrading-firmware">Step 8: Upgrading Firmware</h3>
+<p>If we want any packages like LuCI to work, we have to upgrade our image. Download it from <a href="https://openwrt.org/toh/linksys/e5400#installation" target="_blank" rel="noopener noreferrer">here</a>, under “Firmware OpenWrt snapshot Upgrade”, and use <code class="language-plaintext highlighter-rouge">scp</code> to copy it.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>scp &lt;IMAGENAME&gt; root@&lt;GATEWAYIP&gt;:~/
+</code></pre></div></div>
+<p>The password is the one you set in Step 7. You could also, as shown in a setup below, use another router (mine is in WIPS mode) and connect it to the E5400’s “Internet” Ethernet port.</p>
+
+<p><img src="/assets/images/openwrt/bootstrap.jpg" alt=""></p>
+
+<p>Then you could just <code class="language-plaintext highlighter-rouge">wget</code> the image. This is useful as it can allow you to install LuCI without first connecting to Wifi.</p>
+
+<p>Once the file is on the router, run</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysupgrade &lt;IMAGENAME&gt;
+</code></pre></div></div>
+<p>After some logs your router will boot into the latest version of OpenWRT available. Run <code class="language-plaintext highlighter-rouge">passwd</code> again to set the root password and enjoy!</p>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

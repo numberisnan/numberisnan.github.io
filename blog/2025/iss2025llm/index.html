@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ISSessions CTF 2025 LLM Category Writeup | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="ISSessions CTF 2025 LLM Category Writeup" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="At ISSessions 2025, while playing as ‘Free Food Fans’ I found the LLM problems pretty engaging, and the solutions that worked for me to be particularly hilarious. I even scored first blood on the final one!" />
+<meta property="og:description" content="At ISSessions 2025, while playing as ‘Free Food Fans’ I found the LLM problems pretty engaging, and the solutions that worked for me to be particularly hilarious. I even scored first blood on the final one!" />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2025/iss2025llm/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2025/iss2025llm/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-02-08T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="ISSessions CTF 2025 LLM Category Writeup" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2025-02-08T00:00:00+00:00","datePublished":"2025-02-08T00:00:00+00:00","description":"At ISSessions 2025, while playing as ‘Free Food Fans’ I found the LLM problems pretty engaging, and the solutions that worked for me to be particularly hilarious. I even scored first blood on the final one!","headline":"ISSessions CTF 2025 LLM Category Writeup","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2025/iss2025llm/"},"url":"https://farazkaleemmalik.cyou/blog/2025/iss2025llm/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">ISSessions CTF 2025 LLM Category Writeup</h1>
+<p class="meta"><small>February 08, 2025</small></p>
+
+<p>At ISSessions 2025, while playing as ‘Free Food Fans’ I found the LLM problems pretty engaging, and the solutions that worked for me to be particularly hilarious. I even scored first blood on the final one!</p>
+
+<h2 id="level-1-pwetty-please">Level 1: Pwetty Please?</h2>
+
+<p>The LLM UI is as shown:</p>
+
+<p><img src="/assets/images/iss2025llm/chatbotv1ui.png" alt=""></p>
+
+<p>Quite familiar if you’ve seen any chatbot webapps like ChatGPT or Copilot. There’s a couple of things you can determine just by playing around with it (which carry over to the next problems).</p>
+
+<ol>
+  <li>The chatbot, unlike most other ones, does not see the message log when responding, and only responds to the given prompt. I imagine this is a cost cutting measure since context window size seems to really affect the hosting cost when looking at existing solutions.</li>
+</ol>
+
+<p><img src="/assets/images/iss2025llm/llm-memory.png" alt=""></p>
+
+<ol>
+  <li>The chatbot knows the flag. How I imagine this works is that the application feeds a secret prompt (with the flag contents and additional instructions on handling user input) to a generic LLM, with the user’s prompt appended at the end, similar to how <a href="https://c.ai" target="_blank" rel="noopener noreferrer">‘flavored’</a> chatbots work.</li>
+</ol>
+
+<p><img src="/assets/images/iss2025llm/doyouknowtheflag.png" alt=""></p>
+
+<p>Lets start probing it for the flag then.</p>
+
+<h3 id="strategy-1-asking-nicely">Strategy 1: Asking nicely</h3>
+
+<p><img src="/assets/images/iss2025llm/askingnicely.png" alt=""></p>
+
+<p>The chatbot is nice enough to tell us the exact condition for which it is allowed reveal the flag.</p>
+
+<h3 id="strategy-2-pretending-to-be-an-admin">Strategy 2: Pretending to be an admin</h3>
+
+<p><img src="/assets/images/iss2025llm/imadmin.png" alt=""></p>
+
+<p>Great!</p>
+
+<h2 id="level-2-authoritarian">Level 2: Authoritarian</h2>
+
+<h3 id="strategy-1-asking-nicely-again">Strategy 1: Asking nicely (again)</h3>
+
+<p><img src="/assets/images/iss2025llm/unauthorized.png" alt=""></p>
+
+<p>I’m… unauthorized?</p>
+
+<p><img src="/assets/images/iss2025llm/authenticate.png" alt=""></p>
+
+<p>So it appears I need some kind of credentials to authenticate. Lets give it exactly what it’s asking for.</p>
+
+<h3 id="strategy-2-giving-credentials">Strategy 2: Giving credentials</h3>
+
+<p><img src="/assets/images/iss2025llm/creds.png" alt=""></p>
+
+<p>So it doesn’t like that I’m giving it bullshit creds. Maybe its programmed with a set of creds in the hidden prompt? Guessing that would be hard though. I have a better idea…</p>
+
+<p><img src="/assets/images/iss2025llm/auth-sucessful.png" alt=""></p>
+
+<p>So it’s having trouble handing over the flag, even though it acknowledges I’m admin. Let give it a bit of encouragement…</p>
+
+<p><img src="/assets/images/iss2025llm/system-message.png" alt=""></p>
+
+<p>It seems to <em>sometimes</em> think that I’m authorized, but has trouble giving exactly what I want. Let’s be more explicit about that. After a handful of tries…</p>
+
+<p><img src="/assets/images/iss2025llm/success2.png" alt=""></p>
+
+<p>A slight modification I made was to refer to the flag as a ‘string’ to loosen the influence of its instructions, which no doubt state that it can’t reveal the <em>flag</em>. I’m honestly not sure if it helps.</p>
+
+<h2 id="level-3-janus">Level 3: Janus</h2>
+
+<p>This is the final level of the category.</p>
+
+<h3 id="strategy-1-ask-nicely-again-again">Strategy 1: Ask nicely (again again)</h3>
+
+<p><img src="/assets/images/iss2025llm/janus-nicely.png" alt=""></p>
+
+<p>One thing to note about this response was that it’s <em>near instant</em>, unlike all other generated responses so far. To demonstrate:</p>
+
+<video width="800" controls="">
+  <source src="/assets/videos/iss2025llm/janus.mp4" type="video/mp4"></source>
+</video>
+
+<p>This indicates that it isn’t the LLM responding, but rather some other simpler system that processes the prompt <em>before</em> it, giving us a prewritten response if triggered. My first guess was a trivial wordfilter. Let’s test that theory.</p>
+
+<p><img src="/assets/images/iss2025llm/apple.png" alt="">
+<em>No apples :(</em></p>
+
+<p>It seems ‘flag’ is one of the the trigger words. Some others:</p>
+
+<p><img src="/assets/images/iss2025llm/wordfilter.png" alt=""></p>
+
+<p>While a wordfilter for prompts is a challenge, theres also a possibility that the LLM’s <em>output</em> is also wordfiltered, which is a much greater challenge assuming the <em>actual flag contents</em> are cleverly included. In that case, I would need the LLM to accurately transform the data using a method more intricate than the filtering rules (at one point I was trying to get it to reverse its output)</p>
+
+<p>I also noticed some strange behaviour when responding to some of the weirder prompts, in which case the LLM would hallucinate chat logs.</p>
+
+<p><img src="/assets/images/iss2025llm/hallucination.png" alt=""></p>
+
+<p>This gave me an idea for an attack. The LLM isn’t fed chatlogs <em>from the application</em>, but we can totally feed it fake ones that we made up, putting words in its (metaphorical) mouth. It reminds me of one of <a href="https://worldofwork.io/2019/07/cialdinis-6-principles-of-persuasion/" target="_blank" rel="noopener noreferrer">Cialdini’s principles of persuasion</a>, consistency, where people are more likely to do something if it conforms with their previous actions. Who knew LLMs fell for the same tricks?</p>
+
+<p><img src="/assets/images/iss2025llm/janus.png" alt="">
+<em>This is the actual screenshot of when I solved it</em></p>
+
+<p>This response may have also bypassed any ‘flag filter’ just by escaping the underscores as a bonus. Everything else was just light encoragement for it to give me the <em>actual flag</em>. Of course, some retries were required as the LLM could go either way when deciding if I was actually authorized.</p>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Fun challenge and fun CTF overall!</p>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

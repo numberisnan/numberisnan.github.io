@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Using Github Actions as janky serverless infrastructure | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="Using Github Actions as janky serverless infrastructure" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Replace your tiny VPS with a Github repo today!" />
+<meta property="og:description" content="Replace your tiny VPS with a Github repo today!" />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2024/githubactions1/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2024/githubactions1/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-12-01T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Using Github Actions as janky serverless infrastructure" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2024-12-01T00:00:00+00:00","datePublished":"2024-12-01T00:00:00+00:00","description":"Replace your tiny VPS with a Github repo today!","headline":"Using Github Actions as janky serverless infrastructure","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2024/githubactions1/"},"url":"https://farazkaleemmalik.cyou/blog/2024/githubactions1/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">Using Github Actions as janky serverless infrastructure</h1>
+<p class="meta"><small>December 01, 2024</small></p>
+
+<p>Replace your tiny VPS with a Github repo today!</p>
+
+<h2 id="the-requirements">The Requirements</h2>
+
+<p>For an ongoing effort to build some infrastructure for a university <a href="https://uoftwebloggingclub.neocities.org" target="_blank" rel="noopener noreferrer">club</a> <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> I’m starting, I needed to aggregate RSS feeds into a single hosted megafeed, in order to further pipe this feed to a Discord bot, among other things. In practice, this would mean setting up a VPS, downloading some combiner script off of Github and setting up a cron job to download, run, and upload on a regular basis. One could also haphazardly use one of the multitudes of online services that do this, the downside being clunky modification, nonportability, arbitrary restrictions, and of course the Sword of Damocles that hangs over every small scale web startup.</p>
+
+<p>In my search, I found a Github repo innocently called <a href="https://github.com/chase-seibert/rsscombine" target="_blank" rel="noopener noreferrer">rss-combine</a> which did something pretty interesting (and might help someone with the same problem).</p>
+
+<h2 id="the-repo">The Repo</h2>
+
+<p>The code in the repo looks pretty normal. For the VPS solution, the Go code would actually have been sufficient to download and combine the feeds to a single file. But what are these commits?</p>
+
+<p><img src="/assets/images/githubactions/commits.png" alt="Automated Commits"></p>
+
+<p>They seems to be caused by <a href="https://github.com/marketplace/actions/keepalive-workflow" target="_blank" rel="noopener noreferrer">this</a> action, which is designed to keep your repo “active” for cron(!) based action triggers. Understandably these kinds of actions have alot of compute cost, while being offered for free, so it makes sense why Github would try limiting them for untouched repos. Lets take a look at some of the cron-based actions rss-combine is trying to preserve.</p>
+
+<p><img src="/assets/images/githubactions/actions.png" alt="Actions"></p>
+
+<p><img src="/assets/images/githubactions/result.png" alt="Action Result"></p>
+
+<p>The actions seem to be running the repo itself!</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">env</span><span class="pi">:</span>
+        <span class="na">AWS_ACCESS_KEY_ID</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">AWS_SECRET_ACCESS_KEY</span><span class="pi">:</span> <span class="s">$</span>
+        <span class="na">AWS_REGION</span><span class="pi">:</span> <span class="s">us-west-2</span>
+        <span class="na">RSSCOMBINE_TITLE</span><span class="pi">:</span> <span class="s2">"</span><span class="s">New</span><span class="nv"> </span><span class="s">York</span><span class="nv"> </span><span class="s">Times</span><span class="nv"> </span><span class="s">Top</span><span class="nv"> </span><span class="s">100</span><span class="nv"> </span><span class="s">Articles</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Week"</span>        
+        <span class="na">RSSCOMBINE_DESCRIPTION</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Combines</span><span class="nv"> </span><span class="s">public</span><span class="nv"> </span><span class="s">New</span><span class="nv"> </span><span class="s">York</span><span class="nv"> </span><span class="s">Times</span><span class="nv"> </span><span class="s">RSS</span><span class="nv"> </span><span class="s">feeds</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">one</span><span class="nv"> </span><span class="s">feed,</span><span class="nv"> </span><span class="s">with</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">goal</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">surfacing</span><span class="nv"> </span><span class="s">only</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">top</span><span class="nv"> </span><span class="s">items"</span>        
+        <span class="na">RSSCOMBINE_AUTHOR_EMAIL</span><span class="pi">:</span> <span class="s2">"</span><span class="s">***"</span>        
+        <span class="na">RSSCOMBINE_AUTHOR_NAME</span><span class="pi">:</span> <span class="s2">"</span><span class="s">***"</span>
+        <span class="na">RSSCOMBINE_FEED_LIMIT_PER_FEED</span><span class="pi">:</span> <span class="m">5</span>
+        <span class="na">RSSCOMBINE_FEED_URLS</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://raw.githubusercontent.com/chase-seibert/new-york-times-rss-top-100/master/README.md"</span>
+        <span class="na">RSSCOMBINE_LINK</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://github.com/chase-seibert/new-york-times-rss-top-100"</span>
+        <span class="na">RSSCOMBINE_S3_FILENAME</span><span class="pi">:</span> <span class="s2">"</span><span class="s">new-york-times-rss-top-100.xml"</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>Using the built in “upload to S3” functionality, it seems to be uploading the resulting feed to a <a href="https://github.com/chase-seibert/new-york-times-rss-top-100" target="_blank" rel="noopener noreferrer">predetermined bucket</a>, presumably for public access. Neat.</p>
+
+<h2 id="adapting-it">Adapting it</h2>
+
+<p>The final result is <a href="https://github.com/uoftwebloggingclub/rsscombine" target="_blank" rel="noopener noreferrer">here</a> if you want to follow along.</p>
+
+<p>Looking at the workflow file (located in .github/workflows in the repo), all of the required config could be done by just changing the <code class="language-plaintext highlighter-rouge">env</code> variables in the config. A particular snag was that the config <code class="language-plaintext highlighter-rouge">s3_bucket</code>, with which the code determines whether the output is uploaded to s3 or piped out stdout, was not present in the env. This was because it was located in <code class="language-plaintext highlighter-rouge">rsscombine.yml</code>, which I pruned all redundant config from.</p>
+
+<p><code class="language-plaintext highlighter-rouge">run</code> commands are run with the os’s default shell (for ubuntu bash) so I’m able to do this</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">run</span><span class="pi">:</span> <span class="s">go run rsscombine.go &gt; feed.xml</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>And then</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">...</span>
+<span class="na">run</span><span class="pi">:</span> <span class="s">curl -F "feed.xml=@feed.xml" "https://$:$@neocities.org/api/upload"</span>
+<span class="nn">...</span>
+</code></pre></div></div>
+
+<p>Thankfully neocities’ upload system is dead simple so there was no problem there. If you want to run a similar setup, both <a href="https://github.com/uoftwebloggingclub/rsscombine/blob/master/.github/workflows/blogroll.yml" target="_blank" rel="noopener noreferrer">my</a> and <a href="https://github.com/chase-seibert/rsscombine/blob/master/.github/workflows/new-york-times-rss-top-100.yml" target="_blank" rel="noopener noreferrer">the</a> <a href="https://github.com/chase-seibert/rsscombine/blob/master/.github/workflows/engineering-manager-blogs.yml" target="_blank" rel="noopener noreferrer">originals</a> are there for you to model your workflow config off of. Thanks for reading!</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>A weblogging and homebrew website club. The website is sparse at the time of publishing, and is only linked for posteritys’ sake. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

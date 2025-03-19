@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>BroncoCTF 2025 QR Coded Writeup | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="BroncoCTF 2025 QR Coded Writeup" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte." />
+<meta property="og:description" content="This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte." />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2025/bronco/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2025/bronco/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-02-17T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="BroncoCTF 2025 QR Coded Writeup" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2025-02-17T00:00:00+00:00","datePublished":"2025-02-17T00:00:00+00:00","description":"This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte.","headline":"BroncoCTF 2025 QR Coded Writeup","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2025/bronco/"},"url":"https://farazkaleemmalik.cyou/blog/2025/bronco/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">BroncoCTF 2025 QR Coded Writeup</h1>
+<p class="meta"><small>February 17, 2025</small></p>
+
+<p>This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte.</p>
+
+<h2 id="problem">Problem</h2>
+
+<blockquote>
+  <p>This one should be really easy. All you have to do is scan a QR code!</p>
+</blockquote>
+
+<p>Attached is an image called “easy_scan.png”, which is exactly as shown.</p>
+
+<p><img src="/assets/images/bronco/easy_scan.png" alt=""></p>
+
+<h2 id="steps">Steps</h2>
+
+<p>Scanning the QR code like the problem statement suggests gives you <code class="language-plaintext highlighter-rouge">bracco{thi5_1sn7_r34l}</code>. Not very helpful. I decided to plug the image into <a href="https://www.aperisolve.com/" target="_blank" rel="noopener noreferrer">AperiSolve</a> to give some more info.</p>
+
+<p><img src="/assets/images/bronco/aperisolve.png" alt=""></p>
+
+<p>I noticed that all layers except the first were identical. This makes sense since the image appeared to be white and black, which are  #ffffff and #000000 respectively. Thus, there was only variation in the least significant bits, which we could see best in the superimposed image in the top left corner. Of course, these variations are impossible to notice on the final image.</p>
+
+<p>One thing to notice is that the colourful superposition actually forms a valid, <em>but different</em> QR code. For me, the tell was the clear existence of the 3 large squares and the smaller square near the bottom right (yeah I watched that <a href="https://www.youtube.com/watch?v=w5ebcowAJD8&amp;pp=ygURcXIgY29kZSBleHBsYWluZWQ%3D" target="_blank" rel="noopener noreferrer">Veritasium video</a>).</p>
+
+<p><img src="/assets/images/bronco/qr.png" alt=""></p>
+
+<p>From there, I just had to convert the colorful image into black and white. This can be done with a simple ImageMagick command.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>magick qr.png -alpha off -threshold 99% o.png
+</code></pre></div></div>
+
+<p><img src="/assets/images/bronco/o.png" alt=""></p>
+
+<p>Scanning the code (or in my case, uploading it to some random QR code decoder site) gives us the flag, <code class="language-plaintext highlighter-rouge">bronco{th1s_0n3_i5}</code>.</p>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>

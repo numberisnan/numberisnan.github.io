@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <meta name="google-site-verification" content="1qOUUqQaR8LZWTYoHRWkDJ6OcSYM_zRYJsgQp7Z82cw" />
+        <meta property="og:image" content="/assets/images/profile.png">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <link href="https://use.fontawesome.com/releases/v5.11.0/css/all.css" rel="stylesheet" type="text/css" />
+
+        <h1 class="post-headline">Faraz Kaleem Malik</h1>
+        <h3 class="post-description">Personal website for a Computer Science student at UofT</h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/projects/">Projects</a>
+        <!-- <a href="/blog/">Blog</a> -->
+        <a href="/blog/">Blog</a>
+        <a href="/videos/">Videos</a>
+        <!-- <a href="/tank-crash/">Minigame</a> -->
+        <a href="/feed.xml">RSS</a>
+        <a href="/assets/public.key">PGP Key</a>
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>ISSessions CTF 2025 Google Sus Writeup | Faraz Kaleem Malik</title>
+<meta name="generator" content="Jekyll v4.3.4" />
+<meta property="og:title" content="ISSessions CTF 2025 Google Sus Writeup" />
+<meta name="author" content="Faraz Kaleem Malik" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Google Sus was a fun OSINT challenge me and my teammate solved roughly a minute after the competition ended 😔" />
+<meta property="og:description" content="Google Sus was a fun OSINT challenge me and my teammate solved roughly a minute after the competition ended 😔" />
+<link rel="canonical" href="https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus/" />
+<meta property="og:url" content="https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus/" />
+<meta property="og:site_name" content="Faraz Kaleem Malik" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2025-02-10T00:00:00+00:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="ISSessions CTF 2025 Google Sus Writeup" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Faraz Kaleem Malik"},"dateModified":"2025-02-10T00:00:00+00:00","datePublished":"2025-02-10T00:00:00+00:00","description":"Google Sus was a fun OSINT challenge me and my teammate solved roughly a minute after the competition ended 😔","headline":"ISSessions CTF 2025 Google Sus Writeup","mainEntityOfPage":{"@type":"WebPage","@id":"https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus/"},"url":"https://farazkaleemmalik.cyou/blog/2025/iss2025googlesus/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
+<link rel="manifest" href="site.webmanifest">
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">ISSessions CTF 2025 Google Sus Writeup</h1>
+<p class="meta"><small>February 10, 2025</small></p>
+
+<p>Google Sus was a fun OSINT challenge me and my teammate solved roughly a minute after the competition ended 😔</p>
+
+<h2 id="challenge">Challenge</h2>
+
+<p>The exact wording of the challenge is unavailable as of writing, but we were given a name “Wilford Von Bugsy”, who reportedly had bad opsec, and a 0-cost hint referencing wine.</p>
+
+<h2 id="info-aggregation">Info Aggregation</h2>
+
+<p>DuckDuckGoing the term “Wilford Von Bugsy” gives us 2 leads - A LinkedIn and a Flickr account.</p>
+
+<p><img src="/assets/images/iss2025googlesus/ddg.png" alt=""></p>
+
+<p>The Flickr is a red herring - literally</p>
+
+<p><img src="/assets/images/iss2025googlesus/flickr.png" alt=""></p>
+
+<p>The LinkedIn has some interesting info - narrowing our target down to at least having <em>history</em> in the GTA, and letting us know that he went to Sheridan for a Bachelors in Animation. Furthermore, according to the program website the program is only offered in the Oakville campus, narrowing down location even more.</p>
+
+<p><img src="/assets/images/iss2025googlesus/linkedin1.png" alt="">
+<em>What a pivot</em></p>
+
+<p>The LinkedIn also has an email in the “Contact Info” section</p>
+
+<p><img src="/assets/images/iss2025googlesus/linkedin2.png" alt=""></p>
+
+<p>My teammate ran the email through the OSINT tool <a href="https://epieos.com/" target="_blank" rel="noopener noreferrer">EPIEOS</a> and got 3 hits</p>
+<ol>
+  <li>Google (duh)</li>
+  <li>Flickr (already found)</li>
+  <li>Vivino (???)</li>
+</ol>
+
+<h2 id="deeper-look">Deeper look</h2>
+
+<p><img src="/assets/images/iss2025googlesus/vivino1.png" alt=""></p>
+
+<p>A wine ordering website. Looks like were on the right track.</p>
+
+<p>When looking further into the Google account, we found a Google Maps profile associated with the account with a few contributions</p>
+
+<p><img src="/assets/images/iss2025googlesus/googlemaps1.png" alt=""></p>
+
+<p>A single review and 3 answers. Since this account was made specifically for the CTF, we can assume these are meaningful and part of the challenge. However, these isn’t a way to retrieve reviews by profile, probably intentionally to avoid the exact thing that we’re doing.</p>
+
+<p>Back to Vivino, after looking at the URL structure for user profiles (for the site’s review feature) and a lucky guess as to what his username might be, we’re at his profile.</p>
+
+<p><img src="/assets/images/iss2025googlesus/vivino2.png" alt="">
+<em>https://www.vivino.com/users/wilford.von.bugsy1982</em></p>
+
+<p>A sports pub and grill near his college? Good thing we know exactly where his college is. The first result in Google Maps to “sports pub and grill near sheridan oakville” was our place - Monaghan’s Sports Pub &amp; Grill.</p>
+
+<p><img src="/assets/images/iss2025googlesus/googlemaps2.png" alt=""></p>
+
+<p>Wait, didn’t he have a Google Maps review? My teammate found it by simply sorting the reviews by new.</p>
+
+<p><img src="/assets/images/iss2025googlesus/googlemaps3.png" alt=""></p>
+
+<p>We get a strangely specific hashtag and a reference to him posting pictures. It’s not his Flickr, so maybe Instagram?</p>
+
+<p><img src="/assets/images/iss2025googlesus/instagram1.png" alt=""></p>
+
+<p>They’re somehow hidden, but theres definitely posts here (unless some other team who got this far is trying to mess with us). The images are of burgers at Monaghan’s, so my teammate had the idea of searching by location instead. With that, we were able to narrow it down to a single account called @notorious_wvb.</p>
+
+<p><img src="/assets/images/iss2025googlesus/instagram2.png" alt=""></p>
+
+<p>From here the flag is obvious. Here’s a mind map of our entire search.</p>
+
+<p><img src="/assets/images/iss2025googlesus/mindmap.png" alt=""></p>
+
+
+<!-- Comments only for posts -->
+
+    
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> Made with <a target="_blank" href="https://github.com/jitinnair1/gradfolio/" rel="noopener noreferrer">Gradfolio</a>.
+                    Last updated on 19 Mar 2025
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button email" itemprop="email" href="mailto:%77%65%62%6D%61%73%74%65%72@%66%61%72%61%7A%6B%61%6C%65%65%6D%6D%61%6C%69%6B.%63%79%6F%75" target="_blank">
+<i class="far fa-envelope"></i>
+</a><a title="" class="social-button linkedin" href="https://www.linkedin.com/in/farazkaleemmalik" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/numberisnan" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button devpost" itemprop="sameAs" href="https://devpost.com/numberisnan" target="_blank" rel="noopener noreferrer">
+<i class="fab">D</i>
+</a><img src="/assets/images/button.png">
+
+</div>
+
+
+        </footer>
+
+        <!-- GoatTracker Tracking code -->
+<script data-goatcounter="https://farazkaleemmalik.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+    </body>
+
+</html>
