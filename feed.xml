@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://farazkaleemmalik.cyou/feed.xml" rel="self" type="application/atom+xml" /><link href="https://farazkaleemmalik.cyou/" rel="alternate" type="text/html" /><updated>2025-03-19T20:35:20+00:00</updated><id>https://farazkaleemmalik.cyou/feed.xml</id><title type="html">Faraz Kaleem Malik</title><subtitle>Personal website for a Computer Science student at UofT</subtitle><author><name>farazkaleemmalik</name></author><entry><title type="html">BroncoCTF 2025 QR Coded Writeup</title><link href="https://farazkaleemmalik.cyou/blog/2025/bronco/" rel="alternate" type="text/html" title="BroncoCTF 2025 QR Coded Writeup" /><published>2025-02-17T00:00:00+00:00</published><updated>2025-02-17T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/bronco</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/bronco/"><![CDATA[<p>This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://farazkaleemmalik.cyou/feed.xml" rel="self" type="application/atom+xml" /><link href="https://farazkaleemmalik.cyou/" rel="alternate" type="text/html" /><updated>2025-03-26T14:17:05+00:00</updated><id>https://farazkaleemmalik.cyou/feed.xml</id><title type="html">Faraz Kaleem Malik</title><subtitle>Personal website for a Computer Science student at UofT</subtitle><author><name>farazkaleemmalik</name></author><entry><title type="html">WHWC March 2024: E-Zines!</title><link href="https://farazkaleemmalik.cyou/blog/2025/ezines/" rel="alternate" type="text/html" title="WHWC March 2024: E-Zines!" /><published>2025-03-24T00:00:00+00:00</published><updated>2025-03-24T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/ezines</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/ezines/"><![CDATA[<p>Following the <a href="https://uoftwebloggingclub.neocities.org/events/march2025">March UofT WHWC Writing Event</a> theme of “Smallweb”, I’m deciding to dedicate a small part of my site to an interesting smallweb subculture: e-zines!</p>
+
+<h3 id="whats-a-zine">What’s a Zine?</h3>
+
+<p>A cautionary perusal of the relevant <a href="https://en.wikipedia.org/wiki/Zine">Wikipedia</a> page reveals the it is a typically small-scale and indie distribution of something resembeling a magazine, with strong emphasis on typesetting and graphical elements. For the case of e-zines, there is also the fact that distribution is though the internet, allowing for a more interesting collaboration dynamic. In some cases, this collaboration is psuedonanymous, so artists might not even know each other by name!</p>
+
+<p>I’ve decided to archive a few of these because of the ethereal nature of these projects, with websites going down and file uploads getting removed, and the occasional nuke-everything-and-run by the admins. Many of these zines are uploaded in the most bizarre places, such as <a href="https://itch.io">itch.io</a> and <a href="https://mega.io/">Mega</a>, which makes it impossible for the <a href="https://web.archive.org/">Wayback Machine</a> to properly archive.</p>
+
+<h3 id="archival">Archival</h3>
+
+<p>The archive is currently around 2GB on my hard drive which might cause issues with Github if I upload it all directly to my website. I’ll try to reduce the size somehow and make a page available later containing all the issues for each of these zines.</p>
+
+<h3 id="lainzine">Lainzine</h3>
+
+<p><img src="/assets/images/ezines/lainszine.png" alt="" /></p>
+
+<p><a href="https://lainzine.org/">Website</a></p>
+
+<p>This was my first exposure to e-zines. Topics include cyberpunk/hacker culture, but there alot of variety even within this specific space. There’s alot of intro-level articles on a variety of computer science and math topics, some creative/political writing, and a suspicious amount of drug procurement guides. I also think these stylistically hit out of the park: I especially love the covers and full-page intermediary pieces.</p>
+
+<h3 id="black-fog">Black Fog</h3>
+
+<p><img src="/assets/images/ezines/blackfog.jpg" alt="" /></p>
+
+<p><a href="https://blackfogzine.org/">Website</a></p>
+
+<p>This one is more focused on art (with a vague internet/glitch theme), with issues consisting of concatenated comics and visual art collections, from photography to glitch art to drawings. I particularly love the style here too.</p>
+
+<h3 id="cyberbully">cyberbully</h3>
+
+<p><img src="/assets/images/ezines/cyberbully.png" alt="" /></p>
+
+<p>This e-zine has a focus on internet users, but of course gravitates to the smallweb since <em>that’s where all the all the fun happens obviously</em>. Lots of fun pages, and I especially love the ASCII art full pages and cover.</p>
+
+<h3 id="paged-out">Paged Out</h3>
+
+<p><img src="/assets/images/ezines/pagedout.png" alt="" /></p>
+
+<p>This one is a more technical-oriented zine a la <a href="https://phrack.org/">Phrack</a>, but not just raw ASCII which makes the whole thing alot more readable (though more expensive archive). I particularly like the “ICO/PDF polyglot guide” from Issue 1 since this knowledge has somehow come up in a job interview. Theres tons of fun esoteric things like quines and code golfing, even if you arent into cyberecurity, though its a bit inaccessible if you arent familiar with low level programming.</p>
+
+<h3 id="poc-or-gtfo">PoC or GTFO</h3>
+
+<p><img src="/assets/images/ezines/pocorgtfo.png" alt="" /></p>
+
+<p>This zine is typeset in LaTeX which tells alot about the style of articles inside. Similar to Paged Out, there’s alot of writeup-style explorations in very deep technical domains. As the name suggests, expanded as “Proof of Concept or Get the Fuck Out”, the articles aren’t astract in the least: they are things you are able to do <em>now</em> on existing computers and setups (which is different from the more abstract kinds of info you learn from textbooks and courses).</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Following the March UofT WHWC Writing Event theme of “Smallweb”, I’m deciding to dedicate a small part of my site to an interesting smallweb subculture: e-zines!]]></summary></entry><entry><title type="html">BroncoCTF 2025 QR Coded Writeup</title><link href="https://farazkaleemmalik.cyou/blog/2025/bronco/" rel="alternate" type="text/html" title="BroncoCTF 2025 QR Coded Writeup" /><published>2025-02-17T00:00:00+00:00</published><updated>2025-02-17T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2025/bronco</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2025/bronco/"><![CDATA[<p>This writeup was requested multiple times on Discord so here it is. I solved this while playing with “BLIGHT BABIES” (now BYTE BABIES) at BroncoCTF 2025. This is a forensics problem which is definitely not my forte.</p>
 
 <h2 id="problem">Problem</h2>
 
@@ -402,25 +446,4 @@
 
 <p><img src="/assets/images/update/keyboard.jpg" alt="" /></p>
 
-<p>The concept of a cyberdeck is really growing on me, and this seems like the cheapest method to achieve a pocketable version that also supports portable connection methods like LTE and cellular calling. Its been thrust into the public zeitgeist again thanks to a Youtube trend just how insanely easy it is for phone networks to triangulate your location just by your phone being on, so I’m happy there is at least one device that allows your to physically disable your modem via a dip switch should you want to.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[A small update on the ongoing nature of my previous two posts]]></summary></entry><entry><title type="html">Budget Homelab Overview</title><link href="https://farazkaleemmalik.cyou/blog/2024/homelab1/" rel="alternate" type="text/html" title="Budget Homelab Overview" /><published>2024-02-09T00:00:00+00:00</published><updated>2024-02-09T00:00:00+00:00</updated><id>https://farazkaleemmalik.cyou/blog/2024/homelab1</id><content type="html" xml:base="https://farazkaleemmalik.cyou/blog/2024/homelab1/"><![CDATA[<p>Overview of my extremely budget homelab setup</p>
-
-<p>Now that my Github Student Developer package has run out of DigitalOcean credits (with DO refusing to give me more this year), I decided it would make more sense to move my servers on premises. Maybe this might give you some ideas on how you start your own college dorm servers too!</p>
-
-<p><img src="/assets/images/homelab/setup.jpg" alt="Entire Setup" /></p>
-
-<h2 id="servers">Servers</h2>
-
-<p>First off I have a Raspberry Pi 4B (2GB). Easily the most expensive component, costing ~$100 in 2021. It is being booted off of a USB drive instead of the standard microSD card since in my experience the cards have a much higher failure rate (for any set GB/dollar). Originally this was meant to be my only server, but its limitation of being ARM in an x86_64 world forced me to add another one.</p>
-
-<p>Second is a salvaged motherboard from a Lenovo Ideapad. Even when it was operational it wasn’t a particularly powerful machine, having low power <a href="https://ark.intel.com/content/www/us/en/ark/products/197310/intel-celeron-processor-n4020-4m-cache-up-to-2-80-ghz.html">Celeron N4020 CPU</a>. I took interest in this because of the low power draw (the fact that it was free helped). Some downsides are soldered RAM and storage (with the SSD completely busted), as well as the lack of proper IO like Ethernet or SATA ports. Both servers are booted off of USB Thumbdrives for this reason, with application storage and backups going on the NAS.</p>
-
-<p>My NAS is some old model of a Netgear ReadyNAS Duo. 2 3.5in SATA bays, but only 1 is occupied at the moment (with 500gb). I got this off of Facebook Marketplace recently for $20. The web interface is straight out of 2007, and the security horribly outdated. I found it really nice that despite Netgear exiting the NAS market a few years ago that their forums and support pages are still active (for now). Much of my setup would be very difficult without these. I connect to the NAS on my servers and desktop using NFS, and even stream media to my phone using FTP. Naturally the device is blocked from internet.</p>
-
-<p>Finally there is my OpenWRT router, as seen <a href="/blog/2023/openwrt1/">here</a>. For $15 it has proven to be very versatile thanks to the well supported operating system.</p>
-<ul>
-  <li>All devices on the LAN get a .lan domain name (the pi is pi.lan etc.) so I can usually forget about looking up IP addresses</li>
-  <li>I have it running a DDNS client connected to Namecheap to account for IP changes.</li>
-  <li>Comprehensive overview page with diagnostics for every running service and add-on</li>
-</ul>
-
-<p>Overall the system could not have costed much more than $150, while keeping the power bill fairly minimal. I like the idea of getting used to slower hardware so any improvements end up feeling quite dramatic! I will probably do something about the laptop motherboard and upgrade NAS capacity for my next steps.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[Overview of my extremely budget homelab setup]]></summary></entry></feed>
+<p>The concept of a cyberdeck is really growing on me, and this seems like the cheapest method to achieve a pocketable version that also supports portable connection methods like LTE and cellular calling. Its been thrust into the public zeitgeist again thanks to a Youtube trend just how insanely easy it is for phone networks to triangulate your location just by your phone being on, so I’m happy there is at least one device that allows your to physically disable your modem via a dip switch should you want to.</p>]]></content><author><name>Faraz Kaleem Malik</name><email>webmaster@farazkaleemmalik.cyou</email></author><summary type="html"><![CDATA[A small update on the ongoing nature of my previous two posts]]></summary></entry></feed>
