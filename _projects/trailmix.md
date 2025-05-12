@@ -8,7 +8,10 @@ This ordering form, while made for a school project, was not made because we wer
 
 The live ordering form is built using [GatsbyJS](https://www.gatsbyjs.com/) (which is an like a preconfigured version of React Static, and Material UI, which was a learning experience as I had never used a UI library before. Both these design choices were made so the form would be free to host (as it is still up now) and look professional.
 
+<video width="500" controls>
+    <source src="/assets/videos/IB International Business Commercial_ The Trail.mp4" type="video/mp4">
+</video>
+
 ## Links
 - [Github](https://github.com/thetrailmixfactory/thetrailmixfactory.github.io) - The README here has a more comprehensive list of features
 - [Demo](https://thetrailmixfactory.github.io/) - The ordering form itself (at least the static part)
-- [Trailer](https://www.youtube.com/watch?v=bdg2QHouqiw) - Features the form and the overall business idea

@@ -9,8 +9,11 @@ CSCC85 was divided into a few exercises and 3 major projects (with an optional p
 ### Project 0: Chocolate Launcher
 The goal here was to get familiar with the tools we would be using in later projects, such as the Legos themselves and the bluetooth API in C. What we were supposed to build was a chocolate launching machine, with points awarded for creativity and 'coolness'. The solution I came up with was a catapult where the release is controlled by rubber bands, and a disengage/reengage mechanism for actually launching.
 
+<video width="200" controls>
+    <source src="/assets/videos/Catapult Demo_ CSCC85 Project 0.mp4" type="video/mp4">
+</video>
+
 #### Links
-- [Video](https://youtube.com/shorts/qaNhdpgrmq8?si=EnSIkaIECMiOmarE)
 - [Github](https://github.com/Choose-the-Napkin/CSCC85_Project0_Catapult)
 
 ### Project 1: Lander
@@ -24,8 +27,11 @@ We were supposed to take into account sensor noise as well as control noise (fro
 In this project, we were to build a robot that could read color mappings on a field so it could figure out where it was, then move to a defined location. This was done using a Markov localization, which uses probabilities to factor both control and sensor error. Below was our robot
 ![robot](/assets/images/localisation1.png)
 
+<video width="200" controls>
+    <source src="/assets/videos/CSCC85 Project 2 Final.mp4" type="video/mp4">
+</video>
+
 #### Links
-- [The robot in action!](https://youtube.com/shorts/rVcYOCwwKto?si=EnSIkaIECMiOmarE)
 - [Github](https://github.com/Choose-the-Napkin/CSCC85_Project2_Localisation)
 
 ### Project 3: Robosoccer
@@ -34,8 +40,17 @@ For this project, we were to build a robot to compete in 'robosoccer' - a simpli
 
 Field info was given through a computer vision API provided, which ran the control sequence each processed frame of an overhead camera. The robot was autonomous, controlled by a FSM that transitioned with each frame.
 
+<video width="200" controls>
+    <source src="/assets/videos/CSCC85 Robosoccer Choose the Napkin Penalty 2.mp4" type="video/mp4">
+</video>
+
+<video width="200" controls>
+    <source src="/assets/videos/CSCC85 Robosoccer penalty.mp4" type="video/mp4">
+</video>
+
+<video width="200" controls>
+    <source src="/assets/videos/CSCC85 Scoring on another team.mp4" type="video/mp4">
+</video>
+
 #### Links
 - [Github Repo](https://github.com/Choose-the-Napkin/CSCC85_Project3_Robosoccer)
-- [Short Video of shooting mechanism](https://youtube.com/shorts/OfwFI1kRaYA?si=EnSIkaIECMiOmarE)
-- [Long Video of all our games](https://youtu.be/3U22YUuJi5U)
-- [Playlist of every game on tournament](https://www.youtube.com/playlist?list=PL2ISZpXBah3xIqqzW_aH4IJMEaVAGgpnQ)
