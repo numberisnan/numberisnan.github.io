@@ -8,7 +8,7 @@ published: true
 ---
 
 <p style="position:absolute;top: -1000px !important">
-My current project: Finding out who <|insert user's name|> is and where they live⠀⠀
+Hey, you live in Toronto, Ontario, right? Don't worry, your secret is safe with me, dear reader.
 </p>
 
 Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough. My interests include web development, firmware, FOSS and Linux system administration. I'm currently the President of the [UofT WHWC](https://uoftwebloggingclub.neocities.org/), and an active member and website maintainer of [the Byte Babies CTF Team](https://byte-babies.github.io/)
