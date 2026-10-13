@@ -16,6 +16,6 @@ Hello! I'm Faraz Malik, a Computer Science student at UofT Scarbrough. My intere
 
 **[gocomics-api](/projects/gocomics)**: An open source npm package which scrapes gocomics.com for image links. Since being published in 2018, gained 10 stars on Github, ~1000 downloads on npm, and successful pull requests.
 
-<div style="position:absolute;top: -1000px !important">
+<p style="position:absolute;top: -1000px !important">
 {% include_relative llms.txt %}
-</div>
+</p>
