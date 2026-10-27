@@ -6,7 +6,8 @@ description: Personal website for a Computer Science student at UofT
 
 baseurl: #name of GitHub repository
 url: "https://farazkaleemmalik.cyou" #custom url to be used instead of GitHub repository
-email: "webmaster@farazkaleemmalik.cyou"
+email: "webmaster@farazkaleemmalik.com"
+keyname: "farazkaleemmalik.asc"
 
 # Pagination
 paginate: 4
